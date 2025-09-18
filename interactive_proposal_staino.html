@@ -16,6 +16,7 @@
         - Report Info: Package Contents -> Goal: Compare -> Viz/Presentation: Side-by-side feature lists that are dynamically highlighted based on the calculator's selection. -> Interaction: List columns are visually tied to the selected package toggle. -> Justification: Provides an immediate, clear comparison of what is included in each option. -> Library/Method: JS for dynamic class toggling.
     -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <!-- This application is designed to be fully responsive, utilizing Tailwind's utility-first approach and a mobile-first design strategy. The viewport meta tag is included to ensure proper scaling on all devices. Layouts use flexible units (%, flex, grid) rather than fixed pixel widths to adapt to different screen sizes. -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -77,6 +78,29 @@
             width: 100%;
             height: 100%;
         }
+        .faq-item {
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .faq-item:hover {
+            background-color: #f0f4f8;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+            padding: 0 1.5rem; /* px-6 on expanded */
+        }
+        .faq-answer.expanded {
+            max-height: 500px;
+            padding: 1rem 1.5rem; /* py-4 and px-6 on expanded */
+        }
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+        .faq-icon.rotate {
+            transform: rotate(45deg);
+        }
     </style>
 </head>
 <body class="text-slate-800">
@@ -110,23 +134,23 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="step-card bg-white p-6 rounded-xl shadow-lg border border-slate-200 text-center">
                     <div class="text-4xl mb-4 text-sky-600">🎬</div>
-                    <h3 class="text-lg font-semibold mb-2">1. Запись видео</h3>
-                    <p class="text-slate-600 text-sm">Ваш стоматолог записывает один ролик на 2-3 минуты. Этого достаточно для создания его цифрового аватара и клонирования голоса.</p>
+                    <h3 class="text-lg font-semibold mb-2">1. Подготовка и запись</h3>
+                    <p class="text-slate-600 text-sm">Ваш доктор записывает один ролик на 2-4 минуты на хорошем фоне и с качественным звуком. Этого достаточно для создания его цифрового аватара и клонирования голоса.</p>
                 </div>
                 <div class="step-card bg-white p-6 rounded-xl shadow-lg border border-slate-200 text-center">
-                    <div class="text-4xl mb-4 text-sky-600">🤖</div>
-                    <h3 class="text-lg font-semibold mb-2">2. Создание аватара</h3>
-                    <p class="text-slate-600 text-sm">Мы используем HeyGen и ElevenLabs для создания реалистичного аватара и точной копии голоса вашего эксперта.</p>
+                    <div class="text-4xl mb-4 text-sky-600">✍️</div>
+                    <h3 class="text-lg font-semibold mb-2">2. Согласование и разработка</h3>
+                    <p class="text-slate-600 text-sm">Доктор записывает видеоподтверждение согласия прямо на платформе HeyGen. Мы используем <strong>HeyGen</strong> и <strong>ElevenLabs</strong> для создания реалистичного аватара и точной копии голоса.</p>
                 </div>
                 <div class="step-card bg-white p-6 rounded-xl shadow-lg border border-slate-200 text-center">
                     <div class="text-4xl mb-4 text-sky-600">▶️</div>
                     <h3 class="text-lg font-semibold mb-2">3. Генерация роликов</h3>
-                    <p class="text-slate-600 text-sm">На основе ваших сценариев мы создаем до 40 уникальных видеороликов, где аватар говорит нужный текст.</p>
+                    <p class="text-slate-600 text-sm">На основе ваших сценариев мы создаем до 40 уникальных видеороликов, где аватар говорит нужный текст. Процесс занимает до <strong>15-20 рабочих дней</strong>.</p>
                 </div>
                 <div class="step-card bg-white p-6 rounded-xl shadow-lg border border-slate-200 text-center">
                     <div class="text-4xl mb-4 text-sky-600">✨</div>
                     <h3 class="text-lg font-semibold mb-2">4. Монтаж и анимация</h3>
-                    <p class="text-slate-600 text-sm">Добавляем субтитры, музыку, эффекты и анимируем ваших персонажей для максимальной вовлеченности.</p>
+                    <p class="text-slate-600 text-sm">Добавляем субтитры, музыку, эффекты и анимируем ваших персонажей для максимальной вовлеченности. Для анимации мы используем <strong>Pika</strong>, <strong>Kling</strong>, <strong>Seedream</strong> или <strong>Stable Diffusion</strong>.</p>
                 </div>
             </div>
         </section>
@@ -149,11 +173,11 @@
                     
                     <div id="package-details-basic" class="package-details hidden bg-slate-50 p-4 rounded-lg border border-slate-200">
                         <h4 class="font-bold text-sky-700">Пакет «Базовый»</h4>
-                        <p class="text-sm text-slate-600 mt-1">Включает генерацию видео с вашим аватаром и добавление профессиональных субтитров. Идеально для быстрого старта.</p>
+                        <p class="text-sm text-slate-600 mt-1">Идеально подходит, если у вас уже есть внутренний специалист по монтажу. Мы создаем и передаем вам все необходимые цифровые активы, а вы занимаетесь дальнейшей работой с контентом.</p>
                     </div>
                     <div id="package-details-advanced" class="package-details bg-slate-50 p-4 rounded-lg border border-slate-200">
                         <h4 class="font-bold text-sky-700">Пакет «Продвинутый»</h4>
-                        <p class="text-sm text-slate-600 mt-1">Все из «Базового» плюс фоновая музыка, визуальные эффекты и полная анимация ваших трех персонажей. Максимальный эффект.</p>
+                        <p class="text-sm text-slate-600 mt-1">Комплексное решение для тех, кто хочет получить полностью готовый продукт. Мы берём на себя всю работу — от создания аватара до финального монтажа.</p>
                     </div>
 
                     <div>
@@ -187,7 +211,7 @@
                             <span class="font-medium">Скидка 10%:</span>
                             <span id="discount" class="font-bold">-18 000 ₽</span>
                         </div>
-                         <div class="bg-white mt-6 p-6 rounded-lg shadow-inner text-center">
+                        <div class="bg-white mt-6 p-6 rounded-lg shadow-inner text-center">
                             <p class="text-slate-600 text-lg">Итого со скидкой:</p>
                             <p id="total-cost" class="text-4xl font-bold text-sky-700 mt-2">162 000 ₽</p>
                         </div>
@@ -199,21 +223,64 @@
         <!-- Training Option Section -->
         <section id="training" class="mb-20">
             <div class="bg-emerald-50 border-t-4 border-emerald-500 rounded-b text-emerald-900 px-4 py-3 shadow-md" role="alert">
-              <div class="flex items-center">
-                <div class="py-1"><span class="text-3xl mr-4">💡</span></div>
-                <div>
-                  <p class="font-bold">Дополнительная опция: Обучение вашего специалиста</p>
-                  <p class="text-sm">Мы можем не только создать для вас аватар, но и обучить вашего сотрудника самостоятельно генерировать ролики. Это инвестиция в вашу независимость. <span class="font-bold whitespace-nowrap">Стоимость: 30 000 ₽.</span></p>
+                <div class="flex items-center">
+                    <div class="py-1"><span class="text-3xl mr-4">💡</span></div>
+                    <div>
+                        <p class="font-bold">Дополнительная опция: Обучение вашего специалиста</p>
+                        <p class="text-sm">Мы можем не только создать для вас аватар, но и обучить вашего сотрудника самостоятельно генерировать ролики. Это инвестиция в вашу независимость. <span class="font-bold whitespace-nowrap">Стоимость: 30 000 ₽.</span></p>
+                    </div>
                 </div>
-              </div>
             </div>
         </section>
 
+        <!-- FAQ Section -->
+        <section id="faq" class="bg-white p-8 md:p-12 rounded-2xl shadow-2xl border border-slate-200 mb-20">
+            <h2 class="text-3xl font-bold text-center mb-4">Часто задаваемые вопросы (FAQ)</h2>
+            <p class="text-center text-slate-600 mb-12 max-w-3xl mx-auto">Мы собрали ответы на самые важные вопросы, которые помогут вам принять решение и лучше понять процесс работы.</p>
+            <div class="space-y-4">
+                <div class="faq-item rounded-lg bg-slate-50 border border-slate-200">
+                    <div class="faq-question p-6 flex items-center justify-between font-semibold text-lg text-slate-800">
+                        <span>Как происходит создание пробного ролика?</span>
+                        <span class="faq-icon text-2xl font-normal">+</span>
+                    </div>
+                    <div class="faq-answer text-slate-600">
+                        <p class="px-6 pb-6">Пробный ролик — это платная услуга, которая входит в стоимость пакета. Мы сможем его создать только после того, как вы предоставите нам профессиональную видеозапись вашего доктора (хронометраж 2-4 минуты, на хорошем фоне и с качественным звуком) и видеоподтверждение согласия на платформе HeyGen на использование его образа и голоса. Без этого мы не имеем права использовать его материалы для генерации.</p>
+                    </div>
+                </div>
+                <div class="faq-item rounded-lg bg-slate-50 border border-slate-200">
+                    <div class="faq-question p-6 flex items-center justify-between font-semibold text-lg text-slate-800">
+                        <span>Кто оплачивает корпоративный аккаунт и кто получает доступ?</span>
+                        <span class="faq-icon text-2xl font-normal">+</span>
+                    </div>
+                    <div class="faq-answer text-slate-600">
+                        <p class="px-6 pb-6">Корпоративный аккаунт оплачивает ваша компания. Это позволяет вам иметь полный доступ к нему и самостоятельно управлять генерацией контента в будущем.</p>
+                    </div>
+                </div>
+                <div class="faq-item rounded-lg bg-slate-50 border border-slate-200">
+                    <div class="faq-question p-6 flex items-center justify-between font-semibold text-lg text-slate-800">
+                        <span>Какое полное название вашего юридического лица?</span>
+                        <span class="faq-icon text-2xl font-normal">+</span>
+                    </div>
+                    <div class="faq-answer text-slate-600">
+                        <p class="px-6 pb-6">Полное юридическое название нашей компании — <strong>АНО ДПО Учебный центр «Перспектива»</strong>. Мы готовы работать как с юридическими лицами, так и с самозанятыми по договору ГПХ.</p>
+                    </div>
+                </div>
+                <div class="faq-item rounded-lg bg-slate-50 border border-slate-200">
+                    <div class="faq-question p-6 flex items-center justify-between font-semibold text-lg text-slate-800">
+                        <span>Какие нейросети вы используете?</span>
+                        <span class="faq-icon text-2xl font-normal">+</span>
+                    </div>
+                    <div class="faq-answer text-slate-600">
+                        <p class="px-6 pb-6">Мы используем передовые нейросети, чтобы гарантировать высокое качество. Для создания аватара и клонирования голоса — <strong>HeyGen</strong> и <strong>ElevenLabs</strong>. Для анимации и визуальных эффектов — <strong>Pika</strong>, <strong>Kling</strong>, <strong>Seedream</strong> и <strong>Stable Diffusion</strong>. Это позволяет нам создавать уникальные и качественные видеоролики.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- Legal and Contact Section -->
         <footer class="text-center border-t border-slate-200 pt-12">
             <h2 class="text-2xl font-bold mb-4">Готовы начать?</h2>
-             <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 text-slate-600 mb-8">
+            <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 text-slate-600 mb-8">
                 <div class="text-center">
                     <h4 class="font-semibold text-slate-800">Сроки выполнения</h4>
                     <p>~15-20 рабочих дней</p>
@@ -222,7 +289,7 @@
                     <h4 class="font-semibold text-slate-800">Формат работы</h4>
                     <p>Договор ГПХ или с юрлицом</p>
                 </div>
-                 <div class="text-center">
+                <div class="text-center">
                     <h4 class="font-semibold text-slate-800">Рабочий процесс</h4>
                     <p>Полностью дистанционно</p>
                 </div>
@@ -237,7 +304,7 @@
                     <a href="https://t.me/AT_PROMO" class="hover:underline flex items-center">
                         <span class="mr-2">🔗</span> Telegram-канал AT PROMO
                     </a>
-                     <a href="https://vk.com/video-197511211_456239071" class="hover:underline flex items-center">
+                    <a href="https://vk.com/video-197511211_456239071" class="hover:underline flex items-center">
                         <span class="mr-2">🎬</span> Пример видео с аватаром
                     </a>
                 </div>
@@ -261,6 +328,7 @@
             const btnAdvanced = document.getElementById('btn-advanced');
             const detailsBasic = document.getElementById('package-details-basic');
             const detailsAdvanced = document.getElementById('package-details-advanced');
+            const faqItems = document.querySelectorAll('.faq-item');
 
             const state = {
                 package: 'advanced',
@@ -294,8 +362,6 @@
                 pricePerVideoEl.textContent = formatCurrency(pricePerVideo);
                 videosTotalCostEl.textContent = formatCurrency(videosTotalCost);
                 subtotalEl.textContent = formatCurrency(subtotal);
-                discountEl.textContent = `-${formatCurrency(discount)}`;
-                totalCostEl.textContent = formatCurrency(totalCost);
                 
                 if (videoCount < 10) {
                      discountEl.parentElement.classList.add('hidden');
@@ -306,6 +372,7 @@
                      totalCostEl.parentElement.querySelector('p').textContent = 'Итого со скидкой:';
                      totalCostEl.textContent = formatCurrency(totalCost);
                 }
+                discountEl.textContent = `-${formatCurrency(discount)}`;
             }
 
             function selectPackage(packageName) {
@@ -329,6 +396,16 @@
             btnAdvanced.addEventListener('click', () => selectPackage('advanced'));
 
             selectPackage('advanced');
+
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                const answer = item.querySelector('.faq-answer');
+                const icon = item.querySelector('.faq-icon');
+                question.addEventListener('click', () => {
+                    const isExpanded = answer.classList.toggle('expanded');
+                    icon.classList.toggle('rotate', isExpanded);
+                });
+            });
         });
     </script>
 </body>
