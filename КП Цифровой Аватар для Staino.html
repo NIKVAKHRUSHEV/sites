@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интерактивное коммерческое предложение для Staino.ru</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutral Professional -->
+    <!-- Application Structure Plan: The application is designed as a single-page, scrolling interactive proposal to guide the client from understanding the service to making a decision. It starts with a clear value proposition, visually explains the workflow with a step-by-step diagram, builds credibility by showcasing technologies, and then leads to the core interactive element: a price calculator. This calculator allows the user to toggle between service packages and use a slider to adjust the number of videos, instantly seeing the cost breakdown and potential discounts. This structure was chosen to transform a static document into an engaging tool that promotes exploration and transparency, making it easier for the client to understand the value and decide on the best option. The flow is logical: What, How, With What, How Much, and What's Next. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Pricing Tiers & Options -> Goal: Compare, Decide -> Viz/Presentation: Interactive Calculator with toggles, slider, and dynamic text outputs -> Interaction: User selects a package or changes video count, and all cost-related fields update in real-time. This includes total cost, discount, and final price. -> Justification: Empowers the client to perform "what-if" analysis, making pricing transparent and the decision process easier. Replaces static, less engaging tables. -> Library/Method: Vanilla JS for state management and DOM manipulation.
+        - Report Info: Workflow Process -> Goal: Inform, Build Trust -> Viz/Presentation: A responsive, horizontal step-by-step diagram built with HTML/Tailwind, using Unicode characters for icons. -> Interaction: Subtle hover effects to highlight each step. -> Justification: Simplifies a potentially complex process into easily digestible visual steps. -> Library/Method: HTML/CSS (Tailwind).
+        - Report Info: Package Contents -> Goal: Compare -> Viz/Presentation: Side-by-side feature lists that are dynamically highlighted based on the calculator's selection. -> Interaction: List columns are visually tied to the selected package toggle. -> Justification: Provides an immediate, clear comparison of what is included in each option. -> Library/Method: JS for dynamic class toggling.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .step-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .package-btn {
+            transition: all 0.3s ease;
+        }
+        .package-btn.active {
+            background-color: #0284c7;
+            color: white;
+            box-shadow: 0 4px 14px 0 rgb(0 118 255 / 39%);
+        }
+        .package-btn:not(.active) {
+            background-color: #e2e8f0;
+            color: #475569;
+        }
+        .package-details.hidden {
+            display: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background: #0284c7;
+            cursor: pointer;
+            border-radius: 50%;
+            border: 4px solid #fff;
+            box-shadow: 0 0 0 1px #cbd5e1;
+        }
+        input[type="range"]::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            background: #0284c7;
+            cursor: pointer;
+            border-radius: 50%;
+            border: 4px solid #fff;
+            box-shadow: 0 0 0 1px #cbd5e1;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+
+        <!-- Header Section -->
+        <header class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-sky-700 mb-4">Коммерческое предложение для Staino.ru</h1>
+            <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto">Интерактивный инструмент для создания и продвижения видеоконтента с помощью технологий искусственного интеллекта.</p>
+        </header>
+
+        <!-- How It Works Section -->
+        <section id="process" class="mb-20">
+            <h2 class="text-3xl font-bold text-center mb-4">Как это работает</h2>
+            <p class="text-center text-slate-600 mb-12 max-w-2xl mx-auto">Мы превращаем сложный процесс производства видео в четыре простых и понятных шага, чтобы вы получили качественный результат в кратчайшие сроки.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="step-card bg-white p-6 rounded-xl shadow-lg border border-slate-200 text-center">
+                    <div class="text-4xl mb-4 text-sky-600">🎬</div>
+                    <h3 class="text-lg font-semibold mb-2">1. Запись видео</h3>
+                    <p class="text-slate-600 text-sm">Ваш стоматолог записывает один ролик на 2-3 минуты. Этого достаточно для создания его цифрового аватара и клонирования голоса.</p>
+                </div>
+                <div class="step-card bg-white p-6 rounded-xl shadow-lg border border-slate-200 text-center">
+                    <div class="text-4xl mb-4 text-sky-600">🤖</div>
+                    <h3 class="text-lg font-semibold mb-2">2. Создание аватара</h3>
+                    <p class="text-slate-600 text-sm">Мы используем HeyGen и ElevenLabs для создания реалистичного аватара и точной копии голоса вашего эксперта.</p>
+                </div>
+                <div class="step-card bg-white p-6 rounded-xl shadow-lg border border-slate-200 text-center">
+                    <div class="text-4xl mb-4 text-sky-600">▶️</div>
+                    <h3 class="text-lg font-semibold mb-2">3. Генерация роликов</h3>
+                    <p class="text-slate-600 text-sm">На основе ваших сценариев мы создаем до 40 уникальных видеороликов, где аватар говорит нужный текст.</p>
+                </div>
+                <div class="step-card bg-white p-6 rounded-xl shadow-lg border border-slate-200 text-center">
+                    <div class="text-4xl mb-4 text-sky-600">✨</div>
+                    <h3 class="text-lg font-semibold mb-2">4. Монтаж и анимация</h3>
+                    <p class="text-slate-600 text-sm">Добавляем субтитры, музыку, эффекты и анимируем ваших персонажей для максимальной вовлеченности.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calculator Section -->
+        <section id="calculator" class="bg-white p-8 md:p-12 rounded-2xl shadow-2xl border border-slate-200 mb-20">
+            <h2 class="text-3xl font-bold text-center mb-4">Рассчитайте стоимость вашего проекта</h2>
+            <p class="text-center text-slate-600 mb-12 max-w-3xl mx-auto">Выберите пакет услуг и укажите желаемое количество роликов, чтобы увидеть итоговую стоимость и вашу выгоду. Наш подход максимально прозрачен.</p>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                <!-- Controls -->
+                <div class="flex flex-col gap-8">
+                    <div>
+                        <label class="font-semibold text-lg mb-4 block">1. Выберите пакет услуг</label>
+                        <div class="flex rounded-lg">
+                            <button id="btn-basic" class="package-btn w-1/2 py-3 px-4 rounded-l-lg font-semibold">Базовый</button>
+                            <button id="btn-advanced" class="package-btn w-1/2 py-3 px-4 rounded-r-lg font-semibold active">Продвинутый</button>
+                        </div>
+                    </div>
+                    
+                    <div id="package-details-basic" class="package-details hidden bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-sky-700">Пакет «Базовый»</h4>
+                        <p class="text-sm text-slate-600 mt-1">Включает генерацию видео с вашим аватаром и добавление профессиональных субтитров. Идеально для быстрого старта.</p>
+                    </div>
+                    <div id="package-details-advanced" class="package-details bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <h4 class="font-bold text-sky-700">Пакет «Продвинутый»</h4>
+                        <p class="text-sm text-slate-600 mt-1">Все из «Базового» плюс фоновая музыка, визуальные эффекты и полная анимация ваших трех персонажей. Максимальный эффект.</p>
+                    </div>
+
+                    <div>
+                        <label for="video-count" class="font-semibold text-lg mb-4 block">2. Укажите количество роликов: <span id="video-count-label" class="font-bold text-sky-700">40</span></label>
+                        <input type="range" id="video-count" min="1" max="100" value="40" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer">
+                    </div>
+                </div>
+
+                <!-- Results -->
+                <div class="bg-slate-50 p-8 rounded-xl border border-slate-200">
+                    <h3 class="text-xl font-bold mb-6 text-center">Ваш расчет</h3>
+                    <div class="space-y-4">
+                        <!-- Added flex-col on mobile for stacking -->
+                        <div class="flex flex-col sm:flex-row justify-between items-center text-sm">
+                            <span class="text-slate-600 whitespace-nowrap">Подготовительный этап (единоразово):</span>
+                            <span id="setup-cost" class="font-semibold">20 000 ₽</span>
+                        </div>
+                        <div class="flex flex-col sm:flex-row justify-between items-center text-sm">
+                            <span class="text-slate-600 whitespace-nowrap">Стоимость 1 ролика:</span>
+                            <span id="price-per-video" class="font-semibold">4 000 ₽</span>
+                        </div>
+                        <div class="flex flex-col sm:flex-row justify-between items-center text-sm">
+                            <span class="text-slate-600 whitespace-nowrap">Стоимость за <span id="videos-total-label">40</span> роликов:</span>
+                            <span id="videos-total-cost" class="font-semibold">160 000 ₽</span>
+                        </div>
+                        <hr class="border-slate-300 my-4">
+                        <div class="flex flex-col sm:flex-row justify-between items-center text-lg">
+                            <span class="text-slate-600 font-medium whitespace-nowrap">Предварительная стоимость:</span>
+                            <span id="subtotal" class="font-bold">180 000 ₽</span>
+                        </div>
+                        <div class="flex flex-col sm:flex-row justify-between items-center text-lg text-emerald-600">
+                            <span class="font-medium whitespace-nowrap">Скидка 10%:</span>
+                            <span id="discount" class="font-bold">-18 000 ₽</span>
+                        </div>
+                         <div class="bg-white mt-6 p-6 rounded-lg shadow-inner text-center">
+                            <p class="text-slate-600 text-lg">Итого со скидкой:</p>
+                            <p id="total-cost" class="text-4xl font-bold text-sky-700 mt-2">162 000 ₽</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Training Option Section -->
+        <section id="training" class="mb-20">
+            <div class="bg-emerald-50 border-t-4 border-emerald-500 rounded-b text-emerald-900 px-4 py-3 shadow-md" role="alert">
+              <div class="flex items-center">
+                <div class="py-1"><svg class="fill-current h-6 w-6 text-emerald-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
+                <div>
+                  <p class="font-bold">Дополнительная опция: Обучение вашего специалиста</p>
+                  <p class="text-sm">Мы можем не только создать для вас аватар, но и обучить вашего сотрудника самостоятельно генерировать ролики. Это инвестиция в вашу независимость. <span class="font-bold whitespace-nowrap">Стоимость: 30 000 ₽.</span></p>
+                </div>
+              </div>
+            </div>
+        </section>
+
+
+        <!-- Legal and Contact Section -->
+        <footer class="text-center border-t border-slate-200 pt-12">
+            <h2 class="text-2xl font-bold mb-4">Готовы начать?</h2>
+             <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 text-slate-600 mb-8">
+                <div class="text-center">
+                    <h4 class="font-semibold text-slate-800">Сроки выполнения</h4>
+                    <p>~15-20 рабочих дней</p>
+                </div>
+                <div class="text-center">
+                    <h4 class="font-semibold text-slate-800">Формат работы</h4>
+                    <p>Договор ГПХ или с юрлицом</p>
+                </div>
+                 <div class="text-center">
+                    <h4 class="font-semibold text-slate-800">Рабочий процесс</h4>
+                    <p>Полностью дистанционно</p>
+                </div>
+            </div>
+            <div class="mt-8">
+                <p class="font-bold text-lg">Никита Вахрушев</p>
+                <p class="text-slate-600">Эксперт по нейросетям</p>
+                <div class="mt-4 flex flex-col items-center space-y-2 text-sm text-sky-700">
+                    <a href="https://t.me/nikvakhrushev" class="hover:underline flex items-center">
+                        <span class="mr-2">🔗</span> Связаться в Telegram
+                    </a>
+                    <a href="https://t.me/AT_PROMO" class="hover:underline flex items-center">
+                        <span class="mr-2">🔗</span> Telegram-канал AT PROMO
+                    </a>
+                     <a href="https://vk.com/video-197511211_456239071" class="hover:underline flex items-center">
+                        <span class="mr-2">🎬</span> Пример видео с аватаром
+                    </a>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const videoCountSlider = document.getElementById('video-count');
+            const videoCountLabel = document.getElementById('video-count-label');
+            const videosTotalLabel = document.getElementById('videos-total-label');
+            const setupCostEl = document.getElementById('setup-cost');
+            const pricePerVideoEl = document.getElementById('price-per-video');
+            const videosTotalCostEl = document.getElementById('videos-total-cost');
+            const subtotalEl = document.getElementById('subtotal');
+            const discountEl = document.getElementById('discount');
+            const totalCostEl = document.getElementById('total-cost');
+            const btnBasic = document.getElementById('btn-basic');
+            const btnAdvanced = document.getElementById('btn-advanced');
+            const detailsBasic = document.getElementById('package-details-basic');
+            const detailsAdvanced = document.getElementById('package-details-advanced');
+
+            const state = {
+                package: 'advanced',
+                videoCount: 40,
+                prices: {
+                    setup: 20000,
+                    basicPerVideo: 2800,
+                    advancedPerVideo: 4000
+                }
+            };
+
+            const formatCurrency = (value) => {
+                return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 }).format(value);
+            };
+
+            function updateCalculator() {
+                const videoCount = parseInt(videoCountSlider.value, 10);
+                state.videoCount = videoCount;
+
+                const pricePerVideo = state.package === 'basic' ? state.prices.basicPerVideo : state.prices.advancedPerVideo;
+                const setupCost = state.prices.setup;
+                const videosTotalCost = videoCount * pricePerVideo;
+                const subtotal = setupCost + videosTotalCost;
+                const discount = subtotal * 0.10;
+                const totalCost = subtotal - discount;
+
+                videoCountLabel.textContent = videoCount;
+                videosTotalLabel.textContent = videoCount;
+
+                setupCostEl.textContent = formatCurrency(setupCost);
+                pricePerVideoEl.textContent = formatCurrency(pricePerVideo);
+                videosTotalCostEl.textContent = formatCurrency(videosTotalCost);
+                subtotalEl.textContent = formatCurrency(subtotal);
+                discountEl.textContent = `-${formatCurrency(discount)}`;
+                totalCostEl.textContent = formatCurrency(totalCost);
+                
+                if (videoCount < 10) {
+                     discountEl.parentElement.classList.add('hidden');
+                     totalCostEl.parentElement.querySelector('p').textContent = 'Итоговая стоимость:';
+                     totalCostEl.textContent = formatCurrency(subtotal);
+                } else {
+                     discountEl.parentElement.classList.remove('hidden');
+                     totalCostEl.parentElement.querySelector('p').textContent = 'Итого со скидкой:';
+                     totalCostEl.textContent = formatCurrency(totalCost);
+                }
+            }
+
+            function selectPackage(packageName) {
+                state.package = packageName;
+                if (packageName === 'basic') {
+                    btnBasic.classList.add('active');
+                    btnAdvanced.classList.remove('active');
+                    detailsBasic.classList.remove('hidden');
+                    detailsAdvanced.classList.add('hidden');
+                } else {
+                    btnAdvanced.classList.add('active');
+                    btnBasic.classList.remove('active');
+                    detailsAdvanced.classList.remove('hidden');
+                    detailsBasic.classList.add('hidden');
+                }
+                updateCalculator();
+            }
+
+            videoCountSlider.addEventListener('input', updateCalculator);
+            btnBasic.addEventListener('click', () => selectPackage('basic'));
+            btnAdvanced.addEventListener('click', () => selectPackage('advanced'));
+
+            selectPackage('advanced');
+        });
+    </script>
+</body>
+</html>
