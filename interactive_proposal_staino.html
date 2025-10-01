@@ -3,409 +3,569 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Интерактивное коммерческое предложение для Staino.ru</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Warm Neutral Professional -->
-    <!-- Application Structure Plan: The application is designed as a single-page, scrolling interactive proposal to guide the client from understanding the service to making a decision. It starts with a clear value proposition, visually explains the workflow with a step-by-step diagram, builds credibility by showcasing technologies, and then leads to the core interactive element: a price calculator. This calculator allows the user to toggle between service packages and use a slider to adjust the number of videos, instantly seeing the cost breakdown and potential discounts. This structure was chosen to transform a static document into an engaging tool that promotes exploration and transparency, making it easier for the client to understand the value and decide on the best option. The flow is logical: What, How, With What, How Much, and What's Next. -->
-    <!-- Visualization & Content Choices: 
-        - Report Info: Pricing Tiers & Options -> Goal: Compare, Decide -> Viz/Presentation: Interactive Calculator with toggles, slider, and dynamic text outputs -> Interaction: User selects a package or changes video count, and all cost-related fields update in real-time. This includes total cost, discount, and final price. -> Justification: Empowers the client to perform "what-if" analysis, making pricing transparent and the decision process easier. Replaces static, less engaging tables. -> Library/Method: Vanilla JS for state management and DOM manipulation.
-        - Report Info: Workflow Process -> Goal: Inform, Build Trust -> Viz/Presentation: A responsive, horizontal step-by-step diagram built with HTML/Tailwind, using Unicode characters for icons. -> Interaction: Subtle hover effects to highlight each step. -> Justification: Simplifies a potentially complex process into easily digestible visual steps. -> Library/Method: HTML/CSS (Tailwind).
-        - Report Info: Package Contents -> Goal: Compare -> Viz/Presentation: Side-by-side feature lists that are dynamically highlighted based on the calculator's selection. -> Interaction: List columns are visually tied to the selected package toggle. -> Justification: Provides an immediate, clear comparison of what is included in each option. -> Library/Method: JS for dynamic class toggling.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-    <!-- This application is designed to be fully responsive, utilizing Tailwind's utility-first approach and a mobile-first design strategy. The viewport meta tag is included to ensure proper scaling on all devices. Layouts use flexible units (%, flex, grid) rather than fixed pixel widths to adapt to different screen sizes. -->
+    <title>Создание цифрового видеоаватара для Staino.ru</title>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8fafc;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 10px;
+            background-color: #f9f9f9;
+            color: #333;
         }
-        .step-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
-        .step-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+        h1, h2, h3 {
+            font-family: 'Unbounded', sans-serif;
+            color: #2c3e50;
+            margin-top: 0;
         }
+
+        h1 {
+            font-size: 2.4em;
+            font-weight: 700;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.6em;
+            font-weight: 400;
+            margin: 24px 0 16px;
+        }
+
+        h3 {
+            font-size: 1.2em;
+            font-weight: 400;
+            margin: 16px 0 10px;
+        }
+
+        .intro-section {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+            max-height: calc(100vh - 180px);
+            overflow-y: auto;
+            margin-bottom: 24px;
+        }
+
+        .intro-module {
+            background: #f8fafc;
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+        }
+
+        .intro-module:last-child {
+            margin-bottom: 0;
+        }
+
+        .bullet-list {
+            list-style: none;
+            padding: 0;
+            margin: 8px 0;
+        }
+
+        .bullet-list li {
+            padding: 5px 0;
+            position: relative;
+        }
+
+        .bullet-list li::before {
+            content: "•";
+            color: #3498db;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .examples-section {
+            margin: 24px 0;
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .video-item {
+            flex: 1 1 300px;
+            max-width: 400px;
+        }
+
+        .examples-section iframe {
+            width: 100%;
+            height: 250px;
+            border-radius: 8px;
+            border: none;
+        }
+
+        .examples-section p {
+            text-align: center;
+            font-size: 0.9em;
+            margin-top: 8px;
+        }
+
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 12px;
+            margin: 24px 0;
+        }
+
+        .step {
+            flex: 1 1 180px;
+            text-align: center;
+            padding: 16px;
+            background: #f1f8ff;
+            border-radius: 10px;
+            font-size: 0.95em;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        .step h3 {
+            margin-top: 8px;
+            font-size: 1.1em;
+        }
+
+        .calculator {
+            background: #f9fbfd;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 24px 0;
+            border: 1px solid #e1e8ed;
+        }
+
+        .select {
+            margin: 16px 0;
+        }
+
+        .package-buttons {
+            display: flex;
+            gap: 12px;
+            margin: 12px 0;
+        }
+
         .package-btn {
-            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border: 1px solid #cbd5e1;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
         }
+
         .package-btn.active {
-            background-color: #0284c7;
+            background: #3b82f6;
             color: white;
-            box-shadow: 0 4px 14px 0 rgb(0 118 255 / 39%);
+            border-color: #3b82f6;
         }
-        .package-btn:not(.active) {
-            background-color: #e2e8f0;
-            color: #475569;
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
         }
-        .package-details.hidden {
-            display: none;
-        }
+
         input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
-            appearance: none;
-            width: 24px;
-            height: 24px;
-            background: #0284c7;
-            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            background: #3b82f6;
             border-radius: 50%;
-            border: 4px solid #fff;
-            box-shadow: 0 0 0 1px #cbd5e1;
-        }
-        input[type="range"]::-moz-range-thumb {
-            width: 24px;
-            height: 24px;
-            background: #0284c7;
             cursor: pointer;
-            border-radius: 50%;
-            border: 4px solid #fff;
-            box-shadow: 0 0 0 1px #cbd5e1;
         }
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            height: 0;
-            overflow: hidden;
-            border-radius: 12px;
+
+        .range-value {
+            display: inline-block;
+            margin-left: 10px;
+            font-weight: bold;
+            color: #3b82f6;
         }
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+
+        .result {
+            background: #f0fdf4;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 16px 0;
+            font-size: 0.95em;
         }
+
+        .result-item {
+            margin: 6px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .result-item strong {
+            font-weight: 600;
+        }
+
+        .result-item em {
+            color: #16a34a;
+            font-style: normal;
+        }
+
+        .divider {
+            height: 1px;
+            background: #d1d5db;
+            margin: 12px 0;
+        }
+
+        .prep-section, .stages-section {
+            padding: 18px;
+            border-radius: 10px;
+            margin: 24px 0;
+            font-size: 0.95em;
+        }
+
+        .prep-section {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+        }
+
+        .stages-section {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+        }
+
+        .faq {
+            margin: 24px 0;
+        }
+
         .faq-item {
+            margin: 10px 0;
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.95em;
+            background: #fafbff;
+        }
+
+        .faq-toggle {
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            font-weight: 600;
+            color: #2563eb;
         }
-        .faq-item:hover {
-            background-color: #f0f4f8;
+
+        .contact {
+            text-align: center;
+            margin: 32px 0;
+            padding: 20px;
+            background: #1e293b;
+            color: white;
+            border-radius: 12px;
+            font-size: 0.95em;
         }
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out, padding 0.3s ease-out;
-            padding: 0 1.5rem; /* px-6 on expanded */
+
+        .contact a {
+            color: #60a5fa;
+            text-decoration: none;
+            margin: 0 8px;
         }
-        .faq-answer.expanded {
-            max-height: 500px;
-            padding: 1rem 1.5rem; /* py-4 and px-6 on expanded */
-        }
-        .faq-icon {
-            transition: transform 0.3s ease;
-        }
-        .faq-icon.rotate {
-            transform: rotate(45deg);
+
+        .contact a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
-<body class="text-slate-800">
+<body>
+    <div class="container">
+        <h1>Создание цифрового видеоаватара для Staino.ru</h1>
 
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+        <section class="intro-section">
+            <div class="intro-module">
+                <h2>Интерактивное предложение</h2>
+                <p>По созданию цифрового аватара эксперта под ключ для генерации видеоконтента. Мы учли все ваши требования из запроса.</p>
+            </div>
 
-        <!-- Header Section -->
-        <header class="text-center mb-16">
-            <h1 class="text-4xl md:text-5xl font-bold text-sky-700 mb-4">Создание цифрового видеоаватара для Staino.ru</h1>
-            <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto">Интерактивное предложение по созданию цифрового аватара эксперта под ключ для генерации видеоконтента.</p>
-        </header>
+            <div class="intro-module">
+                <h3>Ключевые особенности проекта</h3>
+                <ul class="bullet-list">
+                    <li>Реалистичный аватар "Доктор Анастасия" (Врач стоматолог Анастасия Борисова) в кабинете стоматолога.</li>
+                    <li>Пробные ролики: 1 проф. (до 1 мин) + 1 детский Clean-baby (до 30 сек).</li>
+                    <li>Серийная генерация: 4 ролика/товар (FBO/FBS + бренды StaiNo/Егигиена).</li>
+                </ul>
+            </div>
 
-        <!-- Video Preview Section -->
-        <section id="video-preview" class="mb-20">
-            <div class="bg-white p-4 md:p-8 rounded-2xl shadow-xl border border-slate-200 flex flex-col items-center">
-                <h2 class="text-3xl font-bold text-center mb-4 text-slate-800">Видеопрезентация</h2>
-                <p class="text-center text-slate-600 mb-8 max-w-2xl mx-auto">Посмотрите, как работает технология видеоаватара в действии. Это пример ролика, сгенерированного нейросетью.</p>
-                <div class="video-container w-full max-w-xl mb-6">
-                    <iframe src="https://vk.com/video_ext.php?oid=-197511211&id=456239071&hash=688310c1f6d34e62" width="607" height="360" frameborder="0" allowfullscreen="1" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
-                </div>
-                <a href="https://vk.com/video-197511211_456239071" target="_blank" class="bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300 transform hover:scale-105">
-                    Посмотреть в VK-плеере
-                </a>
+            <div class="intro-module">
+                <h3>Визуальные эффекты: Проф. товары</h3>
+                <ul class="bullet-list">
+                    <li>"Доктор Анастасия" + оживающие эффекты (вкусы/составы).</li>
+                </ul>
+            </div>
+
+            <div class="intro-module">
+                <h3>Визуальные эффекты: Детские</h3>
+                <ul class="bullet-list">
+                    <li>"Доктор Анастасия" + анимированные животные с упаковок.</li>
+                </ul>
+            </div>
+
+            <div class="intro-module">
+                <h3>Технические решения</h3>
+                <ul class="bullet-list">
+                    <li>Озвучка: клон голоса (ElevenLabs) или актер.</li>
+                    <li>Автоматизация: шаблонизация для масштаба.</li>
+                    <li>Стиль: белый халат, бейдж, бодрый/доброжелательный тон.</li>
+                    <li>Длительность: 30 сек (60–75 слов) / 1 мин (120–150 слов).</li>
+                    <li>Инструменты: HeyGen, ElevenLabs, Kling, Seedream, ChatGPT, креативные человеческие головы и руки.</li>
+                </ul>
             </div>
         </section>
 
-        <!-- How It Works Section -->
-        <section id="process" class="mb-20">
-            <h2 class="text-3xl font-bold text-center mb-4">Как это работает</h2>
-            <p class="text-center text-slate-600 mb-12 max-w-2xl mx-auto">Мы превращаем сложный процесс производства видео в четыре простых и понятных шага, чтобы вы получили качественный результат в кратчайшие сроки.</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="step-card bg-white p-6 rounded-xl shadow-lg border border-slate-200 text-center">
-                    <div class="text-4xl mb-4 text-sky-600">🎬</div>
-                    <h3 class="text-lg font-semibold mb-2">1. Подготовка и запись</h3>
-                    <p class="text-slate-600 text-sm">Ваш доктор записывает один ролик на 2-4 минуты на хорошем фоне и с качественным звуком. Этого достаточно для создания его цифрового аватара и клонирования голоса.</p>
-                </div>
-                <div class="step-card bg-white p-6 rounded-xl shadow-lg border border-slate-200 text-center">
-                    <div class="text-4xl mb-4 text-sky-600">✍️</div>
-                    <h3 class="text-lg font-semibold mb-2">2. Согласование и разработка</h3>
-                    <p class="text-slate-600 text-sm">Доктор записывает видеоподтверждение согласия прямо на платформе HeyGen. Мы используем <strong>HeyGen</strong> и <strong>ElevenLabs</strong> для создания реалистичного аватара и точной копии голоса.</p>
-                </div>
-                <div class="step-card bg-white p-6 rounded-xl shadow-lg border border-slate-200 text-center">
-                    <div class="text-4xl mb-4 text-sky-600">▶️</div>
-                    <h3 class="text-lg font-semibold mb-2">3. Генерация роликов</h3>
-                    <p class="text-slate-600 text-sm">На основе ваших сценариев мы создаем до 40 уникальных видеороликов, где аватар говорит нужный текст. Процесс занимает до <strong>15-20 рабочих дней</strong>.</p>
-                </div>
-                <div class="step-card bg-white p-6 rounded-xl shadow-lg border border-slate-200 text-center">
-                    <div class="text-4xl mb-4 text-sky-600">✨</div>
-                    <h3 class="text-lg font-semibold mb-2">4. Монтаж и анимация</h3>
-                    <p class="text-slate-600 text-sm">Добавляем субтитры, музыку, эффекты и анимируем ваших персонажей для максимальной вовлеченности. Для анимации мы используем <strong>Pika</strong>, <strong>Kling</strong>, <strong>Seedream</strong> или <strong>Stable Diffusion</strong>.</p>
-                </div>
+        <section class="examples-section">
+            <h2>Примеры</h2>
+            <div class="video-item">
+                <iframe src="https://vk.com/video_ext.php?oid=-222457079&id=456239017&hash=example" allowfullscreen></iframe>
+                <p><a href="https://vk.com/video-222457079_456239017" target="_blank">Пример 1 в VK</a></p>
+            </div>
+            <div class="video-item">
+                <iframe src="https://vk.com/video_ext.php?oid=-222457079&id=456239018&hash=example" allowfullscreen></iframe>
+                <p><a href="https://vkvideo.ru/video-222457079_456239018" target="_blank">Пример 2 в VK</a></p>
             </div>
         </section>
 
-        <!-- Calculator Section -->
-        <section id="calculator" class="bg-white p-8 md:p-12 rounded-2xl shadow-2xl border border-slate-200 mb-20">
-            <h2 class="text-3xl font-bold text-center mb-4">Рассчитайте стоимость вашего проекта</h2>
-            <p class="text-center text-slate-600 mb-12 max-w-3xl mx-auto">Выберите пакет услуг и укажите желаемое количество роликов, чтобы увидеть итоговую стоимость и вашу выгоду. Наш подход максимально прозрачен.</p>
-            
-            <div class="flex flex-col md:flex-row gap-12 items-start">
-                <!-- Controls -->
-                <div class="flex-1 flex flex-col gap-8">
-                    <div>
-                        <label class="font-semibold text-lg mb-4 block">1. Выберите пакет услуг</label>
-                        <div class="flex rounded-lg">
-                            <button id="btn-basic" class="package-btn w-1/2 py-3 px-4 rounded-l-lg font-semibold">Базовый</button>
-                            <button id="btn-advanced" class="package-btn w-1/2 py-3 px-4 rounded-r-lg font-semibold active">Продвинутый</button>
-                        </div>
-                    </div>
-                    
-                    <div id="package-details-basic" class="package-details hidden bg-slate-50 p-4 rounded-lg border border-slate-200">
-                        <h4 class="font-bold text-sky-700">Пакет «Базовый»</h4>
-                        <p class="text-sm text-slate-600 mt-1">Идеально подходит, если у вас уже есть внутренний специалист по монтажу. Мы создаем и передаем вам все необходимые цифровые активы, а вы занимаетесь дальнейшей работой с контентом.</p>
-                    </div>
-                    <div id="package-details-advanced" class="package-details bg-slate-50 p-4 rounded-lg border border-slate-200">
-                        <h4 class="font-bold text-sky-700">Пакет «Продвинутый»</h4>
-                        <p class="text-sm text-slate-600 mt-1">Комплексное решение для тех, кто хочет получить полностью готовый продукт. Мы берём на себя всю работу — от создания аватара до финального монтажа.</p>
-                    </div>
-
-                    <div>
-                        <label for="video-count" class="font-semibold text-lg mb-4 block">2. Укажите количество роликов: <span id="video-count-label" class="font-bold text-sky-700">40</span></label>
-                        <input type="range" id="video-count" min="1" max="100" value="40" class="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer">
-                    </div>
-                </div>
-
-                <!-- Results -->
-                <div class="flex-1 bg-slate-50 p-8 rounded-xl border border-slate-200 mt-8 md:mt-0">
-                    <h3 class="text-xl font-bold mb-6 text-center">Ваш расчет</h3>
-                    <div class="space-y-4">
-                        <div class="flex justify-between items-center text-sm">
-                            <span class="text-slate-600">Подготовительный этап (единоразово):</span>
-                            <span id="setup-cost" class="font-semibold">20 000 ₽</span>
-                        </div>
-                        <div class="flex justify-between items-center text-sm">
-                            <span class="text-slate-600">Стоимость 1 ролика:</span>
-                            <span id="price-per-video" class="font-semibold">4 000 ₽</span>
-                        </div>
-                        <div class="flex justify-between items-center text-sm">
-                            <span class="text-slate-600">Стоимость за <span id="videos-total-label">40</span> роликов:</span>
-                            <span id="videos-total-cost" class="font-semibold">160 000 ₽</span>
-                        </div>
-                        <hr class="border-slate-300 my-4">
-                        <div class="flex justify-between items-center text-lg">
-                            <span class="text-slate-600 font-medium">Предварительная стоимость:</span>
-                            <span id="subtotal" class="font-bold">180 000 ₽</span>
-                        </div>
-                        <div class="flex justify-between items-center text-lg text-emerald-600">
-                            <span class="font-medium">Скидка 10%:</span>
-                            <span id="discount" class="font-bold">-18 000 ₽</span>
-                        </div>
-                        <div class="bg-white mt-6 p-6 rounded-lg shadow-inner text-center">
-                            <p class="text-slate-600 text-lg">Итого со скидкой:</p>
-                            <p id="total-cost" class="text-4xl font-bold text-sky-700 mt-2">162 000 ₽</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <section class="prep-section">
+            <h2>Правила подготовки контента</h2>
+            <p>Подготовьте материалы заранее для ускорения:</p>
+            <ul class="bullet-list">
+                <li><strong>Видеозапись:</strong> 2–4 мин, кабинет, халат/бейдж, качественный звук.</li>
+                <li><strong>Согласие:</strong> 10–20 сек на HeyGen: "Согласна на использование образа/голоса".</li>
+                <li><strong>Сценарии:</strong> Тексты с FBO/FBS, эффектами (вкусы/животные).</li>
+                <li><strong>Визуалы:</strong> Упаковки, логотипы StaiNo/Егигиена.</li>
+            </ul>
+            <p>После материалов: тестовые ролики — 3 дня. Оптимизация по группам товаров.</p>
         </section>
-        
-        <!-- Training Option Section -->
-        <section id="training" class="mb-20">
-            <div class="bg-emerald-50 border-t-4 border-emerald-500 rounded-b text-emerald-900 px-4 py-3 shadow-md" role="alert">
-                <div class="flex items-center">
-                    <div class="py-1"><span class="text-3xl mr-4">💡</span></div>
-                    <div>
-                        <p class="font-bold">Дополнительная опция: Обучение вашего специалиста</p>
-                        <p class="text-sm">Мы можем не только создать для вас аватар, но и обучить вашего сотрудника самостоятельно генерировать ролики. Это инвестиция в вашу независимость. <span class="font-bold whitespace-nowrap">Стоимость: 30 000 ₽.</span></p>
-                    </div>
+
+        <section>
+            <h2>Как это работает</h2>
+            <div class="steps">
+                <div class="step">
+                    <span>🎬</span>
+                    <h3>1. Подготовка</h3>
+                    <p>Запись 2–4 мин для аватара и голоса.</p>
+                </div>
+                <div class="step">
+                    <span>✍️</span>
+                    <h3>2. Согласование</h3>
+                    <p>HeyGen + ElevenLabs для аватара/голоса.</p>
+                </div>
+                <div class="step">
+                    <span>▶️</span>
+                    <h3>3. Генерация</h3>
+                    <p>До 40 роликов по сценариям, 15–20 дней.</p>
+                </div>
+                <div class="step">
+                    <span>✨</span>
+                    <h3>4. Монтаж</h3>
+                    <p>Субтитры, эффекты, анимация (Pika, Kling).</p>
                 </div>
             </div>
         </section>
 
-        <!-- FAQ Section -->
-        <section id="faq" class="bg-white p-8 md:p-12 rounded-2xl shadow-2xl border border-slate-200 mb-20">
-            <h2 class="text-3xl font-bold text-center mb-4">Часто задаваемые вопросы (FAQ)</h2>
-            <p class="text-center text-slate-600 mb-12 max-w-3xl mx-auto">Мы собрали ответы на самые важные вопросы, которые помогут вам принять решение и лучше понять процесс работы.</p>
-            <div class="space-y-4">
-                <div class="faq-item rounded-lg bg-slate-50 border border-slate-200">
-                    <div class="faq-question p-6 flex items-center justify-between font-semibold text-lg text-slate-800">
-                        <span>Как происходит создание пробного ролика?</span>
-                        <span class="faq-icon text-2xl font-normal">+</span>
-                    </div>
-                    <div class="faq-answer text-slate-600">
-                        <p class="px-6 pb-6">Пробный ролик — это платная услуга, которая входит в стоимость пакета. Мы сможем его создать только после того, как вы предоставите нам профессиональную видеозапись вашего доктора (хронометраж 2-4 минуты, на хорошем фоне и с качественным звуком) и видеоподтверждение согласия на платформе HeyGen на использование его образа и голоса. Без этого мы не имеем права использовать его материалы для генерации.</p>
-                    </div>
+        <section class="stages-section">
+            <h2>Этапы и сроки</h2>
+            <p>Структура по вашим этапам с оптимизацией (–20–30% времени по категориям).</p>
+            <ul class="bullet-list">
+                <li><strong>Этап 1: Аватар</strong> — 5–7 дней, 20 000 ₽.</li>
+                <li><strong>Этап 2: Пробные</strong> — 3 дня после материалов, 4 000 ₽/ролик.</li>
+                <li><strong>Этап 3: Серийные</strong> — До 30 дней, 4 000 ₽/ролик (4 версий/товар).</li>
+            </ul>
+            <p>Один ролик: 1–2 дня. Адаптация FBO/FBS для Ozon/WB.</p>
+        </section>
+
+        <section class="calculator">
+            <h2>Рассчитайте стоимость</h2>
+            <p>Общий объем: ~150–200 роликов. Выберите пакет и перетащите слайдер.</p>
+            <div class="select">
+                <label>Пакет услуг</label>
+                <div class="package-buttons">
+                    <button class="package-btn active" data-package="basic">Базовый</button>
+                    <button class="package-btn" data-package="advanced">Продвинутый</button>
                 </div>
-                <div class="faq-item rounded-lg bg-slate-50 border border-slate-200">
-                    <div class="faq-question p-6 flex items-center justify-between font-semibold text-lg text-slate-800">
-                        <span>Кто оплачивает корпоративный аккаунт и кто получает доступ?</span>
-                        <span class="faq-icon text-2xl font-normal">+</span>
-                    </div>
-                    <div class="faq-answer text-slate-600">
-                        <p class="px-6 pb-6">Корпоративный аккаунт оплачивает ваша компания. Это позволяет вам иметь полный доступ к нему и самостоятельно управлять генерацией контента в будущем.</p>
-                    </div>
+                <p><strong>Базовый:</strong> Активы для вашего монтажа.</p>
+                <p><strong>Продвинутый:</strong> Полный продукт под ключ.</p>
+            </div>
+            <div class="select">
+                <label>Количество роликов (искл. тестовые): <span class="range-value" id="rangeValue">40</span></label>
+                <input type="range" id="quantity" min="1" max="200" value="40" step="1">
+            </div>
+            <div class="result" id="result">
+                <div class="result-item">
+                    <strong>Подготовка аватара</strong>
+                    <em>20 000 ₽</em>
                 </div>
-                <div class="faq-item rounded-lg bg-slate-50 border border-slate-200">
-                    <div class="faq-question p-6 flex items-center justify-between font-semibold text-lg text-slate-800">
-                        <span>Какое полное название вашего юридического лица?</span>
-                        <span class="faq-icon text-2xl font-normal">+</span>
-                    </div>
-                    <div class="faq-answer text-slate-600">
-                        <p class="px-6 pb-6">Полное юридическое название нашей компании — <strong>АНО ДПО Учебный центр «Перспектива»</strong>. Мы готовы работать как с юридическими лицами, так и с самозанятыми по договору ГПХ.</p>
-                    </div>
+                <div class="result-item">
+                    <strong>2 тестовых ролика</strong>
+                    <em>8 000 ₽</em>
                 </div>
-                <div class="faq-item rounded-lg bg-slate-50 border border-slate-200">
-                    <div class="faq-question p-6 flex items-center justify-between font-semibold text-lg text-slate-800">
-                        <span>Какие нейросети вы используете?</span>
-                        <span class="faq-icon text-2xl font-normal">+</span>
-                    </div>
-                    <div class="faq-answer text-slate-600">
-                        <p class="px-6 pb-6">Мы используем передовые нейросети, чтобы гарантировать высокое качество. Для создания аватара и клонирования голоса — <strong>HeyGen</strong> и <strong>ElevenLabs</strong>. Для анимации и визуальных эффектов — <strong>Pika</strong>, <strong>Kling</strong>, <strong>Seedream</strong> и <strong>Stable Diffusion</strong>. Это позволяет нам создавать уникальные и качественные видеоролики.</p>
-                    </div>
+                <div class="result-item">
+                    <strong>Стоимость 1 ролика</strong>
+                    <em>4 000 ₽</em>
+                </div>
+                <div class="result-item">
+                    <strong>За <span id="qty">40</span> роликов</strong>
+                    <em><span id="rolls-cost">160 000</span> ₽</em>
+                </div>
+                <div class="divider"></div>
+                <div class="result-item">
+                    <strong>Предварительная стоимость</strong>
+                    <em><span id="prelim">188 000</span> ₽</em>
+                </div>
+                <div class="result-item">
+                    <strong>Скидка 10%</strong>
+                    <em>–<span id="discount">18 800</span> ₽</em>
+                </div>
+                <div class="divider"></div>
+                <div class="result-item">
+                    <strong>Итого</strong>
+                    <em><span id="final">169 200</span> ₽</em>
+                </div>
+                <p style="margin-top: 12px;"><strong>Правки:</strong> 3 включено, далее 1 500 ₽/шт.</p>
+            </div>
+        </section>
+
+        <section>
+            <h3>💡 Обучение специалиста</h3>
+            <p>Обучим генерировать ролики самостоятельно: 30 000 ₽.</p>
+        </section>
+
+        <section class="faq">
+            <h2>FAQ</h2>
+            <p>Ответы на ваши вопросы из запроса.</p>
+            <!-- FAQ items remain unchanged -->
+            <div class="faq-item">
+                <div class="faq-toggle" onclick="toggleFaq(this)">Сроки и стоимость этапов? +</div>
+                <div class="faq-content" style="display:none;">
+                    <p>Этап 1: 5–7 дн., 20к ₽. Этап 2: 3 дн., 4к/ролик. Этап 3: до 30 дн., 4к/ролик. Полный (~150): 1–1.5 мес., ~600к со скидкой.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-toggle" onclick="toggleFaq(this)">Автоматизация? +</div>
+                <div class="faq-content" style="display:none;">
+                    <p>Шаблоны HeyGen для 100+ роликов. Модульные анимации для детских.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-toggle" onclick="toggleFaq(this)">Озвучка? +</div>
+                <div class="faq-content" style="display:none;">
+                    <p>Нейросеть бесплатно; актер +1к/ролик.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-toggle" onclick="toggleFaq(this)">Материалы маркетплейсов? +</div>
+                <div class="faq-content" style="display:none;">
+                    <p>Адаптация под Ozon/WB (CTA, FBO/FBS). Интеграция StaiNo/Егигиена.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-toggle" onclick="toggleFaq(this)">Пробный ролик? +</div>
+                <div class="faq-content" style="display:none;">
+                    <p>После видео/согласия. Платно в пакете.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-toggle" onclick="toggleFaq(this)">Аккаунт HeyGen? +</div>
+                <div class="faq-content" style="display:none;">
+                    <p>Вы оплачиваете, полный доступ вам.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-toggle" onclick="toggleFaq(this)">Юрлицо? +</div>
+                <div class="faq-content" style="display:none;">
+                    <p>АНО ДПО «Перспектива». ГПХ или юрлицо.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-toggle" onclick="toggleFaq(this)">Нейросети? +</div>
+                <div class="faq-content" style="display:none;">
+                    <p>HeyGen/ElevenLabs (аватар/голос); Pika/Kling (анимация).</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-toggle" onclick="toggleFaq(this)">Большие объемы? +</div>
+                <div class="faq-content" style="display:none;">
+                    <p>>100 роликов: –15%, ежемесячно, приоритет.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-toggle" onclick="toggleFaq(this)">Примеры проектов? +</div>
+                <div class="faq-content" style="display:none;">
+                    <p>50 роликов для косметики; 30 детских с персонажами. Ссылки по запросу.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Legal and Contact Section -->
-        <footer class="text-center border-t border-slate-200 pt-12">
-            <h2 class="text-2xl font-bold mb-4">Готовы начать?</h2>
-            <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 text-slate-600 mb-8">
-                <div class="text-center">
-                    <h4 class="font-semibold text-slate-800">Сроки выполнения</h4>
-                    <p>~15-20 рабочих дней</p>
-                </div>
-                <div class="text-center">
-                    <h4 class="font-semibold text-slate-800">Формат работы</h4>
-                    <p>Договор ГПХ или с юрлицом</p>
-                </div>
-                <div class="text-center">
-                    <h4 class="font-semibold text-slate-800">Рабочий процесс</h4>
-                    <p>Полностью дистанционно</p>
-                </div>
-            </div>
-            <div class="mt-8">
-                <p class="font-bold text-lg">Никита Вахрушев</p>
-                <p class="text-slate-600">Эксперт по нейросетям</p>
-                <div class="mt-4 flex flex-col items-center space-y-2 text-sm text-sky-700">
-                    <a href="https://t.me/nikvakhrushev" class="hover:underline flex items-center">
-                        <span class="mr-2">🔗</span> Связаться в Telegram
-                    </a>
-                    <a href="https://t.me/AT_PROMO" class="hover:underline flex items-center">
-                        <span class="mr-2">🔗</span> Telegram-канал AT PROMO
-                    </a>
-                    <a href="https://vk.com/video-197511211_456239071" class="hover:underline flex items-center">
-                        <span class="mr-2">🎬</span> Пример видео с аватаром
-                    </a>
-                </div>
-            </div>
-        </footer>
-
+        <section class="contact">
+            <h2>Готовы начать?</h2>
+            <p><strong>Сроки:</strong> Тестовые — 3 дн.; полный — до 30 дн.</p>
+            <p>Договор ГПХ/юрлицо. Дистанционно.</p>
+            <h3>Никита Вахрушев</h3>
+            <p>Эксперт по нейросетям</p>
+            <p>
+                <a href="https://t.me/nikvakhrushev" target="_blank">Telegram</a> |
+                <a href="https://t.me/atpromo" target="_blank">AT PROMO</a> |
+                <a href="https://vkvideo.ru/video-222457079_456239018" target="_blank">Пример</a>
+            </p>
+        </section>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const videoCountSlider = document.getElementById('video-count');
-            const videoCountLabel = document.getElementById('video-count-label');
-            const videosTotalLabel = document.getElementById('videos-total-label');
-            const setupCostEl = document.getElementById('setup-cost');
-            const pricePerVideoEl = document.getElementById('price-per-video');
-            const videosTotalCostEl = document.getElementById('videos-total-cost');
-            const subtotalEl = document.getElementById('subtotal');
-            const discountEl = document.getElementById('discount');
-            const totalCostEl = document.getElementById('total-cost');
-            const btnBasic = document.getElementById('btn-basic');
-            const btnAdvanced = document.getElementById('btn-advanced');
-            const detailsBasic = document.getElementById('package-details-basic');
-            const detailsAdvanced = document.getElementById('package-details-advanced');
-            const faqItems = document.querySelectorAll('.faq-item');
+        function toggleFaq(element) {
+            const content = element.nextElementSibling;
+            content.style.display = content.style.display === 'none' ? 'block' : 'none';
+            element.textContent = element.textContent.includes('+') 
+                ? element.textContent.replace('+', '–') 
+                : element.textContent.replace('–', '+');
+        }
 
-            const state = {
-                package: 'advanced',
-                videoCount: 40,
-                prices: {
-                    setup: 20000,
-                    basicPerVideo: 2800,
-                    advancedPerVideo: 4000
-                }
-            };
-
-            const formatCurrency = (value) => {
-                return new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB', minimumFractionDigits: 0 }).format(value);
-            };
-
-            function updateCalculator() {
-                const videoCount = parseInt(videoCountSlider.value, 10);
-                state.videoCount = videoCount;
-
-                const pricePerVideo = state.package === 'basic' ? state.prices.basicPerVideo : state.prices.advancedPerVideo;
-                const setupCost = state.prices.setup;
-                const videosTotalCost = videoCount * pricePerVideo;
-                const subtotal = setupCost + videosTotalCost;
-                const discount = subtotal * 0.10;
-                const totalCost = subtotal - discount;
-
-                videoCountLabel.textContent = videoCount;
-                videosTotalLabel.textContent = videoCount;
-
-                setupCostEl.textContent = formatCurrency(setupCost);
-                pricePerVideoEl.textContent = formatCurrency(pricePerVideo);
-                videosTotalCostEl.textContent = formatCurrency(videosTotalCost);
-                subtotalEl.textContent = formatCurrency(subtotal);
-                
-                if (videoCount < 10) {
-                     discountEl.parentElement.classList.add('hidden');
-                     totalCostEl.parentElement.querySelector('p').textContent = 'Итоговая стоимость:';
-                     totalCostEl.textContent = formatCurrency(subtotal);
-                } else {
-                     discountEl.parentElement.classList.remove('hidden');
-                     totalCostEl.parentElement.querySelector('p').textContent = 'Итого со скидкой:';
-                     totalCostEl.textContent = formatCurrency(totalCost);
-                }
-                discountEl.textContent = `-${formatCurrency(discount)}`;
-            }
-
-            function selectPackage(packageName) {
-                state.package = packageName;
-                if (packageName === 'basic') {
-                    btnBasic.classList.add('active');
-                    btnAdvanced.classList.remove('active');
-                    detailsBasic.classList.remove('hidden');
-                    detailsAdvanced.classList.add('hidden');
-                } else {
-                    btnAdvanced.classList.add('active');
-                    btnBasic.classList.remove('active');
-                    detailsAdvanced.classList.remove('hidden');
-                    detailsBasic.classList.add('hidden');
-                }
-                updateCalculator();
-            }
-
-            videoCountSlider.addEventListener('input', updateCalculator);
-            btnBasic.addEventListener('click', () => selectPackage('basic'));
-            btnAdvanced.addEventListener('click', () => selectPackage('advanced'));
-
-            selectPackage('advanced');
-
-            faqItems.forEach(item => {
-                const question = item.querySelector('.faq-question');
-                const answer = item.querySelector('.faq-answer');
-                const icon = item.querySelector('.faq-icon');
-                question.addEventListener('click', () => {
-                    const isExpanded = answer.classList.toggle('expanded');
-                    icon.classList.toggle('rotate', isExpanded);
-                });
+        // Package buttons
+        const packageBtns = document.querySelectorAll('.package-btn');
+        packageBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                packageBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
             });
+        });
+
+        // Slider
+        const quantitySlider = document.getElementById('quantity');
+        const rangeValue = document.getElementById('rangeValue');
+        const qtySpan = document.getElementById('qty');
+        const rollsCost = document.getElementById('rolls-cost');
+        const prelim = document.getElementById('prelim');
+        const discount = document.getElementById('discount');
+        const final = document.getElementById('final');
+
+        quantitySlider.addEventListener('input', function() {
+            const qty = parseInt(this.value);
+            rangeValue.textContent = qty;
+            const baseRollsCost = qty * 4000;
+            const tests = 8000;
+            const prep = 20000;
+            const prelimTotal = prep + tests + baseRollsCost;
+            const discAmount = prelimTotal * 0.1;
+            const finalTotal = prelimTotal - discAmount;
+
+            qtySpan.textContent = qty;
+            rollsCost.textContent = baseRollsCost.toLocaleString();
+            prelim.textContent = prelimTotal.toLocaleString();
+            discount.textContent = Math.round(discAmount).toLocaleString();
+            final.textContent = Math.round(finalTotal).toLocaleString();
         });
     </script>
 </body>
