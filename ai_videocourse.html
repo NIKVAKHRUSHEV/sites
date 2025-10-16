@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Перспективные нейросети — видеокурс | Перспектива</title>
+<meta name="description" content="Практический видеокурс по нейросетям: 8 уроков, 4 модуля, 7+ часов практики. Научим автоматизировать рутину, генерировать тексты и визуал, создавать ботов и видео." />
+
+<style>
+  :root{
+    --bg:#0b0f14;
+    --card:#0f1720;
+    --muted:#97a0ad;
+    --accent-orange:#ff7a2d;
+    --accent-green:#37d67a;
+    --glass: rgba(255,255,255,0.03);
+    --glass-2: rgba(255,255,255,0.02);
+    --text:#e6eef6;
+    --radius:14px;
+    --maxw:1100px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background:linear-gradient(180deg,#071018 0%, #0b1016 100%);
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    line-height:1.5;
+  }
+  .wrap{max-width:var(--maxw);margin:32px auto;padding:24px}
+  header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    margin-bottom:24px;
+  }
+  .brand{display:flex;gap:12px;align-items:center}
+  .logo{
+    width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent-orange),var(--accent-green));
+    display:flex;align-items:center;justify-content:center;font-weight:700;color:#081018;
+    box-shadow:0 6px 20px rgba(0,0,0,0.6);
+  }
+  .brand h1{font-size:18px;margin:0}
+  .brand p{margin:0;color:var(--muted);font-size:13px}
+  nav{display:flex;gap:12px;align-items:center}
+  .nav-btn{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 12px;border-radius:10px;color:var(--muted);font-size:14px}
+  .hero{
+    display:grid;
+    grid-template-columns: 1fr 420px;
+    gap:28px;
+    align-items:center;
+    background:linear-gradient(180deg, rgba(255,255,255,0.015), transparent);
+    border-radius:var(--radius);
+    padding:28px;
+    box-shadow: 0 10px 30px rgba(2,6,12,0.6);
+    border:1px solid rgba(255,255,255,0.03);
+  }
+  @media (max-width:980px){
+    .hero{grid-template-columns:1fr; padding:20px}
+  }
+  .hero-left h2{
+    font-size:28px;margin:0 0 10px 0;
+    letter-spacing: -0.4px;
+  }
+  .lead{color:var(--muted); margin-bottom:18px}
+  .badges{display:flex;gap:10px;margin-bottom:18px}
+  .badge{background:var(--glass);padding:8px 10px;border-radius:10px;font-weight:600;font-size:13px;color:var(--text)}
+  .price-block{display:flex;gap:12px;align-items:center}
+  .price{font-size:24px;font-weight:700}
+  .price-old{text-decoration:line-through;color:var(--muted);font-size:14px}
+  .cta-row{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
+  .btn{
+    padding:12px 18px;border-radius:12px;border:0;font-weight:700;cursor:pointer;
+    background:linear-gradient(90deg,var(--accent-orange),#ff9d58); color:#071018;
+    box-shadow:0 8px 24px rgba(255,122,45,0.12);
+  }
+  .btn-outline{
+    background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text);padding:12px 16px;border-radius:12px;
+  }
+  .video-wrap{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:12px;padding:8px;border:1px solid rgba(255,255,255,0.03)}
+  .video-iframe{width:100%;height:700px;border-radius:8px;border:0;display:block}
+  @media (max-width:980px){
+    .video-iframe{height:420px}
+  }
+
+  /* sections */
+  section{margin-top:28px}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media (max-width:980px){ .cards{grid-template-columns:1fr} }
+  .card{
+    background:var(--card);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.02);
+  }
+  .modules{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  @media (max-width:700px){ .modules{grid-template-columns:1fr} }
+  .module{background:var(--glass);padding:14px;border-radius:10px}
+  .module h4{margin:0 0 8px 0}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media (max-width:700px){ .split{grid-template-columns:1fr} }
+
+  /* reviews */
+  .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+  @media (max-width:980px){ .reviews{grid-template-columns:1fr} }
+  .rev{background:var(--card);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,0.02)}
+  .muted{color:var(--muted)}
+
+  /* pricing table */
+  .pricing{display:flex;gap:12px;align-items:stretch}
+  @media (max-width:900px){ .pricing{flex-direction:column} }
+  .price-card{flex:1;padding:16px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border:1px solid rgba(255,255,255,0.03)}
+  .price-card h3{margin:0 0 8px 0}
+  .price-big{font-size:22px;font-weight:800;margin:8px 0}
+
+  footer{margin-top:40px;padding:20px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border:1px solid rgba(255,255,255,0.02)}
+  .contacts{display:flex;gap:20px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+  .small{font-size:13px;color:var(--muted)}
+
+  /* timer pill */
+  .timer-pill{
+    display:inline-flex;gap:10px;align-items:center;padding:8px 12px;border-radius:999px;background:linear-gradient(90deg,#1a232a,#0d1419);
+    border:1px solid rgba(255,255,255,0.04);font-weight:700;color:var(--muted);
+  }
+  .timer-value{color:var(--text);font-weight:800;margin-left:6px}
+  .tag{display:inline-block;padding:6px 10px;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);font-weight:700}
+
+  /* modal */
+  .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:999}
+  .modal.open{display:flex}
+  .modal-card{width:min(720px,94%);background:linear-gradient(180deg,#071018,#0c1218);padding:22px;border-radius:12px;border:1px solid rgba(255,255,255,0.04)}
+  .form-row{display:flex;gap:10px;margin-top:10px}
+  .input{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px;border-radius:8px;color:var(--text);flex:1}
+  .close{background:transparent;border:0;color:var(--muted);font-weight:700;cursor:pointer}
+
+  a { color: inherit; text-decoration: none; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">ПН</div>
+        <div>
+          <h1>Перспективные нейросети</h1>
+          <p class="small">Видеокурс — практика, удостоверение, поддержка</p>
+        </div>
+      </div>
+      <nav>
+        <button class="nav-btn" onclick="scrollToSection('program')">Программа</button>
+        <button class="nav-btn" onclick="scrollToSection('pricing')">Стоимость</button>
+        <button class="nav-btn" onclick="scrollToSection('contacts')">Контакты</button>
+        <button class="nav-btn" onclick="openModal('buy')">Купить</button>
+      </nav>
+    </header>
+
+    <!-- HERO -->
+    <main class="hero" role="main">
+      <div class="hero-left">
+        <div class="badges">
+          <div class="badge">16 часов — 8 занятий (видео)</div>
+          <div class="badge">Удостоверение о повышении квалификации</div>
+        </div>
+
+        <h2>Отдай нейросетям рутину и начинай больше отдыхать — практический видеокурс</h2>
+        <p class="lead">Научим создавать тексты, визуал, видео и автоматизировать процессы при помощи ChatGPT, Qwen, Krea, Make и других инструментов. Подходит для руководителей, маркетологов, HR и предпринимателей.</p>
+
+        <div class="price-block">
+          <div>
+            <div class="price" id="priceMain">8 990 ₽</div>
+            <div class="price-old" id="priceOld" style="display:none">8 990 ₽</div>
+            <div class="small muted">Оплата разово. Доступ навсегда.</div>
+          </div>
+
+          <div style="margin-left:auto;text-align:right">
+            <div class="timer-pill" id="timerPill">
+              <span class="tag">Скидка 10%</span>
+              до конца октября
+              <span class="timer-value" id="timer">—</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cta-row">
+          <button class="btn" onclick="openModal('buy')">Купить за <span id="priceCTA">8 091 ₽</span></button>
+          <button class="btn-outline" onclick="openModal('trial')">Записаться на очную группу (21 октября)</button>
+          <button class="btn-outline" onclick="openModal('corp')">Запрос корпоративного обучения</button>
+        </div>
+
+        <div style="margin-top:18px" class="muted">
+          <strong>Формат:</strong> видеокурс + поддержка в чате. <strong>Также:</strong> очная группа — 4 урока по вторникам (2 часа), старт 21 октября.
+        </div>
+      </div>
+
+      <div>
+        <div class="video-wrap">
+          <!-- вертикальное видео можно разместить справа/сбоку -->
+          <!-- VK clip iframe -->
+          <iframe class="video-iframe" src="https://vk.com/clip-197511211_456239117" allow="autoplay; fullscreen" title="Видео-превью курса"></iframe>
+        </div>
+      </div>
+    </main>
+
+    <!-- Quick benefits -->
+    <section class="cards" aria-labelledby="whyTitle" style="margin-top:20px">
+      <div class="card">
+        <h3>Быстро и практично</h3>
+        <p class="muted">Короткие уроки с практическими заданиями — сразу применимо в работе.</p>
+      </div>
+      <div class="card">
+        <h3>Реальные кейсы</h3>
+        <p class="muted">Кейсы для HR, маркетинга, продаж и автоматизации операций.</p>
+      </div>
+      <div class="card">
+        <h3>Поддержка и удостоверение</h3>
+        <p class="muted">Чат выпускников и удостоверение о повышении квалификации после курса.</p>
+      </div>
+    </section>
+
+    <!-- Program -->
+    <section id="program">
+      <h3>Программа курса — 4 модуля (8 занятий)</h3>
+      <div class="modules" style="margin-top:12px">
+        <div class="module">
+          <h4>Модуль 1 — Текстовые нейросети</h4>
+          <p class="muted">ChatGPT, Qwen, GigaChat. Промт-инженерия, автоматизация текста, генерация писем, КП, инструкций.</p>
+        </div>
+        <div class="module">
+          <h4>Модуль 2 — Графика</h4>
+          <p class="muted">Krea, Leonardo, генерация визуалов, нейрофотосессии и подготовка материалов для соцсетей.</p>
+        </div>
+        <div class="module">
+          <h4>Модуль 3 — Видео и цифровые двойники</h4>
+          <p class="muted">Создание коротких видео, синтез речи, HeyGen/аналогичные сервисы.</p>
+        </div>
+        <div class="module">
+          <h4>Модуль 4 — Автоматизация</h4>
+          <p class="muted">Make.com, чат-боты в Telegram, low-code интеграции — убираем рутину из бизнеса.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Price & packages -->
+    <section id="pricing">
+      <h3>Стоимость и пакеты</h3>
+      <div class="pricing" style="margin-top:12px">
+        <div class="price-card">
+          <h3>Видеокурс</h3>
+          <div class="price-big" id="priceBlock">8 091 ₽ <span class="muted" style="font-size:14px;font-weight:600;margin-left:8px" id="priceNote">(10% скидка до 31 октября)</span></div>
+          <p class="muted">Доступ ко всем видео, материалам и чату поддержки. Удостоверение по окончании.</p>
+          <div style="margin-top:12px">
+            <button class="btn" onclick="openModal('buy')">Купить курс</button>
+          </div>
+        </div>
+
+        <div class="price-card">
+          <h3>Очно — группа (старт 21 октября)</h3>
+          <div class="muted">4 урока по вторникам по 2 часа. Поддержка очно или удаленно.</div>
+          <div style="margin-top:12px" class="price-big">Цена при регистрации: 14 990 ₽</div>
+          <div style="margin-top:12px">
+            <button class="btn-outline" onclick="openModal('trial')">Записаться</button>
+          </div>
+        </div>
+
+        <div class="price-card">
+          <h3>Корпоративный пакет</h3>
+          <ul class="muted" style="padding-left:18px;margin:8px 0 0 0">
+            <li>До 5 мест — 60 000 ₽</li>
+            <li>До 10 мест — 90 000 ₽</li>
+            <li>Каждое дополнительное место — 10 000 ₽</li>
+          </ul>
+          <p class="muted" style="margin-top:8px">Формат: очно или онлайн для команды. Индивидуальные консультации и поддержка по внедрению.</p>
+          <div style="margin-top:12px">
+            <button class="btn" onclick="openModal('corp')">Запросить коммерческое предложение</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reviews (sample) -->
+    <section>
+      <h3>Отзывы выпускников</h3>
+      <div class="reviews" style="margin-top:12px">
+        <div class="rev">
+          <strong>«Экономлю 3 часа в день»</strong>
+          <p class="muted">“Научили писать продающие тексты и автоматизировать ответы клиентам — теперь больше времени на стратегию.” — Наталья, HR</p>
+        </div>
+        <div class="rev">
+          <strong>«Делал аватар и промо за вечер»</strong>
+          <p class="muted">“Круто, что разбор конкретных сервисов и рабочие шаблоны промтов.” — Алексей, предприниматель</p>
+        </div>
+        <div class="rev">
+          <strong>«Удобно и по делу»</strong>
+          <p class="muted">“Видео короткие, задания практические — можно сразу внедрять.” — Ольга, маркетолог</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section>
+      <h3>Вопросы и ответы</h3>
+      <div style="margin-top:12px" class="split">
+        <div class="card">
+          <h4>Подходит ли курс новичкам?</h4>
+          <p class="muted">Да — начинаем с основ промт-инженерии и инструментов, затем переходим к практике.</p>
+        </div>
+        <div class="card">
+          <h4>Как получить удостоверение?</h4>
+          <p class="muted">По итогам курса выдается удостоверение о повышении квалификации установленного образца.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contacts / Footer -->
+    <footer id="contacts" style="margin-top:22px">
+      <div class="contacts">
+        <div>
+          <strong>Учебный центр «Перспектива»</strong>
+          <div class="small muted">Челябинск, пр. Победы, 160</div>
+          <div class="small muted">Тел: +7 (351) 7-000-160</div>
+          <div class="small muted">Email: <a href="mailto:info@perspekt174.ru">info@perspekt174.ru</a></div>
+          <div class="small muted">Сайт: <a href="https://perspekt174.ru" target="_blank" rel="noopener">perspekt174.ru</a></div>
+        </div>
+
+        <div style="text-align:right">
+          <div class="small muted">Контакт ведущего:</div>
+          <div class="small" style="font-weight:700">Никита Вахрушев</div>
+          <div class="small muted">Тел: +7 (999) 586-84-06</div>
+          <div class="small muted">Email: <a href="mailto:vahrushev.n@perspekt174.ru">vahrushev.n@perspekt174.ru</a></div>
+        </div>
+      </div>
+
+      <div style="margin-top:14px" class="small muted">© Учебный центр «Перспектива». Все права защищены.</div>
+    </footer>
+  </div>
+
+  <!-- Modal templates -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true">
+    <div class="modal-card" id="modalCard">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <strong id="modalTitle">Заявка</strong>
+        <button class="close" onclick="closeModal()">✕</button>
+      </div>
+
+      <div style="margin-top:12px" id="modalBody">
+        <!-- Filled dynamically -->
+        <p class="muted">Заполните форму — мы свяжемся с вами для подтверждения и оплаты.</p>
+
+        <div style="margin-top:8px">
+          <input id="inpName" class="input" placeholder="Ваше имя" />
+        </div>
+        <div class="form-row">
+          <input id="inpPhone" class="input" placeholder="Телефон (например +7...)" />
+          <input id="inpEmail" class="input" placeholder="Email" />
+        </div>
+
+        <div style="margin-top:12px;display:flex;gap:10px;justify-content:flex-end">
+          <button class="btn" onclick="submitModal()">Отправить заявку</button>
+          <button class="btn-outline" onclick="closeModal()">Отмена</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // Pricing math (digit-by-digit verified in analysis):
+  // 8990 * 0.10 = 899.0 -> discount = 899 -> final = 8990 - 899 = 8091
+  const originalPrice = 8990;
+  const discountPct = 10;
+  const discountAmount = Math.round(originalPrice * discountPct / 100); // 899
+  const discountedPrice = originalPrice - discountAmount; // 8091
+
+  // Fill price UI
+  document.getElementById('priceCTA').textContent = new Intl.NumberFormat('ru-RU').format(discountedPrice) + ' ₽';
+  document.getElementById('priceBlock').querySelector ? document.getElementById('priceBlock').textContent = new Intl.NumberFormat('ru-RU').format(discountedPrice) + ' ₽' : null;
+  document.getElementById('priceMain').textContent = new Intl.NumberFormat('ru-RU').format(originalPrice) + ' ₽';
+  document.getElementById('priceOld').textContent = new Intl.NumberFormat('ru-RU').format(originalPrice) + ' ₽';
+
+  // TARGET for discount expiry: 2025-10-31 23:59:59 Europe/Warsaw (UTC+1 after DST end)
+  const discountExpiry = new Date('2025-10-31T23:59:59+01:00');
+
+  // Timer update
+  const timerEl = document.getElementById('timer');
+  const timerPill = document.getElementById('timerPill');
+  const priceNote = document.getElementById('priceNote');
+  const priceMain = document.getElementById('priceMain');
+
+  function updateTimer(){
+    const now = new Date();
+    const diff = discountExpiry - now;
+    if(diff <= 0){
+      // discount expired
+      timerPill.style.display = 'none';
+      // show regular price
+      document.getElementById('priceCTA').textContent = new Intl.NumberFormat('ru-RU').format(originalPrice) + ' ₽';
+      document.getElementById('priceBlock').textContent = new Intl.NumberFormat('ru-RU').format(originalPrice) + ' ₽';
+      priceNote.style.display = 'none';
+      return;
+    }
+    const sec = Math.floor((diff/1000) % 60);
+    const min = Math.floor((diff/1000/60) % 60);
+    const hrs = Math.floor((diff/1000/60/60) % 24);
+    const days = Math.floor(diff/1000/60/60/24);
+    timerEl.textContent = `${days}д ${pad(hrs)}:${pad(min)}:${pad(sec)}`;
+    // also show discounted price in CTA if active
+    document.getElementById('priceCTA').textContent = new Intl.NumberFormat('ru-RU').format(discountedPrice) + ' ₽';
+  }
+  function pad(n){return n.toString().padStart(2,'0')}
+  updateTimer();
+  setInterval(updateTimer, 1000);
+
+  // Modal handling
+  let currentModal = null;
+  function openModal(type){
+    currentModal = type;
+    const modal = document.getElementById('modal');
+    const title = document.getElementById('modalTitle');
+    if(type === 'buy'){
+      title.textContent = 'Покупка видеокурса';
+      document.getElementById('modalBody').querySelector('.muted').textContent = 'Заполните форму — мы отправим ссылку на оплату и доступ.';
+    } else if(type === 'corp'){
+      title.textContent = 'Запрос корпоративного пакета';
+      document.getElementById('modalBody').querySelector('.muted').textContent = 'Оставьте контакты — мы подготовим коммерческое предложение для вашей компании.';
+    } else if(type === 'trial'){
+      title.textContent = 'Запись на очную группу (21 октября)';
+      document.getElementById('modalBody').querySelector('.muted').textContent = 'Запись на очную группу. Места ограничены.';
+    } else {
+      title.textContent = 'Заявка';
+    }
+    modal.classList.add('open');
+  }
+  function closeModal(){
+    document.getElementById('modal').classList.remove('open');
+  }
+
+  function submitModal(){
+    const name = document.getElementById('inpName').value || '—';
+    const phone = document.getElementById('inpPhone').value || '—';
+    const email = document.getElementById('inpEmail').value || '—';
+    const subject = encodeURIComponent(getSubjectByType(currentModal));
+    const bodyLines = [
+      `Имя: ${name}`,
+      `Телефон: ${phone}`,
+      `Email: ${email}`,
+      ``,
+      `Пакет: ${getSubjectByType(currentModal)}`
+    ];
+    const body = encodeURIComponent(bodyLines.join('\n'));
+    // open mail client
+    window.location.href = `mailto:info@perspekt174.ru?subject=${subject}&body=${body}`;
+  }
+
+  function getSubjectByType(type){
+    if(type === 'buy') return 'Покупка видеокурса — Перспективные нейросети';
+    if(type === 'corp') return 'Запрос корпоративного пакета — Перспективные нейросети';
+    if(type === 'trial') return 'Запись на очную группу (21 октября) — Перспективные нейросети';
+    return 'Заявка — Перспективные нейросети';
+  }
+
+  // scroll helper
+  function scrollToSection(id){
+    const el = document.getElementById(id);
+    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+</script>
+</body>
+</html>
