@@ -73,22 +73,50 @@
     border-radius:12px;
     border:1px solid var(--glass-border); /* Тонкая граница */
     overflow:hidden; /* Обрезаем, если iframe выходит за пределы */
-    display:block;
-    /* Убедимся, что video-panel не имеет фиксированной высоты, мешающей масштабированию */
-    height: auto; 
+    display:flex; /* Используем flex для центрирования iframe */
+    align-items: center; /* Центрируем по вертикали */
+    justify-content: center; /* Центрируем по горизонтали */
+    /* Убираем height: auto; если он был, пусть контейнер растягивается с содержимым */
   }
-  /* Измените padding-top на 177.77% для соотношения 9:16 */
-  .video-wrapper{position:relative;width:100%;padding-top:177.77%; /* 9:16 portrait ratio */}
+
+  /* Убираем технику с padding-top */
+  .video-wrapper{
+    width: 100%; /* Занимает всю ширину контейнера */
+    height: 100%; /* Занимает всю высоту контейнера */
+    display: flex; /* Используем flex */
+    align-items: center; /* Центрируем iframe внутри wrapper */
+    justify-content: center; /* Центрируем iframe внутри wrapper */
+    /* Убираем padding-top */
+  }
+
   .video-iframe{
-    position:absolute;left:0;top:0;width:100%;height:100%;border-radius:10px;border:0;display:block;background-color:#000;
-    /* Добавьте object-fit: cover; чтобы видео заполняло iframe, сохраняя пропорции и обрезая лишнее */
-    object-fit: cover;
+    /* Убираем position: absolute; и связанные свойства */
+    /* position:static; left:0; top:0; width:100%; height:100%; */
+    width: 100%; /* Ширина iframe подстраивается под контейнер */
+    /* Задаём высоту, например, 80% высоты вьюпорта или фиксированное значение */
+    /* Можно поэкспериментировать с значением */
+    height: 80vh; /* Высота 80% от высоты окна браузера */
+    max-height: 500px; /* Максимальная высота, чтобы не было слишком большим */
+    aspect-ratio: 9 / 16; /* Сохраняем соотношение сторон 9:16 */
+    border-radius:10px;
+    border:0;
+    display:block;
+    object-fit: cover; /* Видео заполняет iframe, сохраняя пропорции */
   }
+
   /* Адаптация для мобильных устройств */
   @media (max-width:1000px){
-    /* Возможно, стоит изменить соотношение сторон для мобильных, если видео будет другим */
-    /* .video-wrapper{padding-top:177.77%;} */ /* Оставим 9:16 на мобильных, если видео такое */
-    .video-iframe{height:54vh;min-height:320px;position:static;width:100%;padding-top:0; object-fit: cover;} /* Убедимся, что object-fit также применяется на мобильных */
+    .video-iframe{
+      /* height: 54vh; /* Используем относительную высоту на мобильных */
+      height: 500px; /* Или фиксированную, или max-height */
+      min-height: 320px; /* Минимальная высота */
+      max-height: 60vh; /* Ограничиваем высоту на мобильных */
+      /* padding-top:0; /* Не нужно без position: absolute */
+      object-fit: cover;
+    }
+    .video-wrapper {
+      /* display: block; /* Можно вернуть блочное поведение, если нужно */
+    }
   }
     @media (max-width:1000px){ .video-iframe{height:54vh;min-height:320px;position:static;width:100%;padding-top:0} }
 
