@@ -74,12 +74,23 @@
     border:1px solid var(--glass-border); /* Тонкая граница */
     overflow:hidden; /* Обрезаем, если iframe выходит за пределы */
     display:block;
+    /* Убедимся, что video-panel не имеет фиксированной высоты, мешающей масштабированию */
+    height: auto; 
   }
-  .video-wrapper{position:relative;width:100%;padding-top:56.25%; /* 16:9 by default */}
+  /* Измените padding-top на 177.77% для соотношения 9:16 */
+  .video-wrapper{position:relative;width:100%;padding-top:177.77%; /* 9:16 portrait ratio */}
   .video-iframe{
     position:absolute;left:0;top:0;width:100%;height:100%;border-radius:10px;border:0;display:block;background-color:#000;
+    /* Добавьте object-fit: cover; чтобы видео заполняло iframe, сохраняя пропорции и обрезая лишнее */
+    object-fit: cover;
   }
-  @media (max-width:1000px){ .video-iframe{height:54vh;min-height:320px;position:static;width:100%;padding-top:0} }
+  /* Адаптация для мобильных устройств */
+  @media (max-width:1000px){
+    /* Возможно, стоит изменить соотношение сторон для мобильных, если видео будет другим */
+    /* .video-wrapper{padding-top:177.77%;} */ /* Оставим 9:16 на мобильных, если видео такое */
+    .video-iframe{height:54vh;min-height:320px;position:static;width:100%;padding-top:0; object-fit: cover;} /* Убедимся, что object-fit также применяется на мобильных */
+  }
+    @media (max-width:1000px){ .video-iframe{height:54vh;min-height:320px;position:static;width:100%;padding-top:0} }
 
   /* right: advantages */
   .adv-panel{display:flex;flex-direction:column;gap:14px}
@@ -267,7 +278,8 @@
     <section class="hero fade" id="hero">
       <!-- LEFT: VIDEO -->
       <div class="video-panel">
-        <div class="">
+        <!-- Оберните iframe в .video-wrapper -->
+        <div class="video-wrapper">
           <iframe class="video-iframe" src="https://vk.com/video_ext.php?oid=-197511211&id=456239117&hd=2&autoplay=1" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" title="Видео курса"></iframe>
         </div>
       </div>
