@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Практикум: ИИ-система генерации и автопубликации контента</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #059669;
+            --secondary: #10b981;
+            --dark: #1f2937;
+            --light: #f9fafb;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            line-height: 1.5;
+            margin: 0;
+            padding: 8px;
+        }
+        .section-title {
+            color: var(--dark);
+            font-weight: 800;
+            font-size: 1.4rem;
+            margin-bottom: 0.75rem;
+            border-left: 3px solid var(--secondary);
+            padding-left: 0.75rem;
+        }
+        .card {
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-radius: 12px;
+        }
+        .cta-button {
+            transition: all 0.2s ease;
+        }
+        .cta-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        @media print {
+            body { padding: 0; }
+            .card { box-shadow: none; }
+        }
+    </style>
+</head>
+<body class="p-2 sm:p-4">
+
+<div class="card max-w-4xl mx-auto rounded-xl overflow-hidden my-2 sm:my-4">
+
+    <header class="p-4 sm:p-6 text-white bg-gradient-to-r from-emerald-600 to-green-500 rounded-t-xl">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center">
+            <div class="flex items-center space-x-2 mb-2 sm:mb-0">
+                <i data-lucide="cog" class="w-6 h-6 sm:w-8 sm:h-8 text-white"></i>
+                <h1 class="text-xl sm:text-2xl font-extrabold">
+                    Практикум “ИИ-система генерации и автопубликации контента”
+                </h1>
+            </div>
+        </div>
+        <p class="text-sm sm:text-base mt-1 font-medium">
+            1-дневный интенсив от автора курса “Перспективные нейросети” — Никиты Вахрушева
+        </p>
+    </header>
+
+    <div class="p-4 sm:p-6">
+        <div class="grid md:grid-cols-3 gap-4 sm:gap-6 mb-6">
+
+            <div class="md:col-span-1 space-y-4">
+                <div class="p-3 bg-gray-50 rounded-lg border border-emerald-100">
+                    <h3 class="text-base font-bold text-gray-700 mb-2 flex items-center">
+                        <i data-lucide="calendar" class="w-4 h-4 mr-1 text-emerald-600"></i>
+                        Когда и где
+                    </h3>
+                    <ul class="text-xs sm:text-sm text-gray-700 space-y-1">
+                        <li class="flex items-start"><i data-lucide="map-pin" class="w-3 h-3 mr-1 mt-0.5 text-emerald-500 flex-shrink-0"></i> <strong>Челябинск, учебный центр «Перспектива»</strong></li>
+                        <li class="flex items-start"><i data-lucide="clock" class="w-3 h-3 mr-1 mt-0.5 text-emerald-500 flex-shrink-0"></i> <strong>27 ноября 2025, 13:00–16:00</strong></li>
+                    </ul>
+                </div>
+
+                <div class="p-4 bg-emerald-500 rounded-lg text-white text-center">
+                    <p class="text-xs opacity-90">Стоимость участия</p>
+                    <p class="text-2xl font-extrabold mt-0.5">3 000 ₽</p>
+                </div>
+
+                <div class="p-3 bg-gray-50 rounded-lg border border-gray-200">
+                    <h3 class="text-base font-bold text-gray-700 mb-2 flex items-center">
+                        <i data-lucide="message-circle" class="w-4 h-4 mr-1 text-gray-600"></i>
+                        Формат
+                    </h3>
+                    <ul class="text-xs sm:text-sm text-gray-700 list-disc list-inside space-y-1">
+                        <li>мини-группа до 15 человек;</li>
+                        <li>работа за компьютерами;</li>
+                        <li>практикум полностью прикладной.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 space-y-6">
+                <div>
+                    <h2 class="section-title text-emerald-600">💡 О чём этот практикум</h2>
+                    <p class="text-gray-700 text-sm sm:text-base mb-2">
+                        Это <strong>живой практический тренинг</strong>, на котором вы создадите собственную систему, которая <strong>сама генерирует, оформляет и публикует контент</strong> в ваши соцсети (ВКонтакте, Telegram) прямо из таблицы контент-плана.
+                    </p>
+                    <blockquote class="p-2 text-xs sm:text-sm border-l-3 border-emerald-500 bg-emerald-50 italic text-gray-700">
+                        После практикума вы перестанете тратить часы на подбор тем, оформление и ручную отложку — контент начнёт работать <strong>на вас и ваш бренд</strong>.
+                    </blockquote>
+                </div>
+
+                <div>
+                    <h2 class="section-title">🎯 Для кого</h2>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-center">
+                        <div class="p-2 bg-white border border-gray-200 rounded">
+                            <i data-lucide="megaphone" class="w-4 h-4 mx-auto text-emerald-600 mb-1"></i>
+                            <p class="text-xs font-semibold">Маркетологи и SMM</p>
+                        </div>
+                        <div class="p-2 bg-white border border-gray-200 rounded">
+                            <i data-lucide="user-check" class="w-4 h-4 mx-auto text-emerald-600 mb-1"></i>
+                            <p class="text-xs font-semibold">Эксперты, преподаватели</p>
+                        </div>
+                        <div class="p-2 bg-white border border-gray-200 rounded">
+                            <i data-lucide="briefcase" class="w-4 h-4 mx-auto text-emerald-600 mb-1"></i>
+                            <p class="text-xs font-semibold">Руководители компаний</p>
+                        </div>
+                        <div class="p-2 bg-white border border-gray-200 rounded">
+                            <i data-lucide="users" class="w-4 h-4 mx-auto text-emerald-600 mb-1"></i>
+                            <p class="text-xs font-semibold">Администраторы сообществ</p>
+                        </div>
+                        <div class="p-2 bg-white border border-gray-200 rounded col-span-2 sm:col-span-1">
+                            <i data-lucide="sparkles" class="w-4 h-4 mx-auto text-emerald-600 mb-1"></i>
+                            <p class="text-xs font-semibold">Все, кто хочет системно продвигаться</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Компактный блок: Что сделаете + Научитесь -->
+        <div class="grid md:grid-cols-2 gap-6 mb-6">
+            <div>
+                <h2 class="section-title">🔧 Что вы сделаете за 3 часа</h2>
+                <ol class="space-y-2 text-gray-700 text-xs sm:text-sm">
+                    <li class="flex items-start">
+                        <span class="text-sm font-bold bg-emerald-600 text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 flex-shrink-0">1</span>
+                        <div><strong>Настроите связку “Нейросеть + Google Таблицы + Соцсети”</strong></div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-sm font-bold bg-emerald-600 text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 flex-shrink-0">2</span>
+                        <div><strong>Создадите визуалы и оформите посты</strong></div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-sm font-bold bg-emerald-600 text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 flex-shrink-0">3</span>
+                        <div><strong>Настроите автоматическую публикацию контента</strong></div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-sm font-bold bg-emerald-600 text-white rounded-full w-6 h-6 flex items-center justify-center mr-2 flex-shrink-0">4</span>
+                        <div><strong>Получите систему, готовую к работе</strong></div>
+                    </li>
+                </ol>
+            </div>
+
+            <div>
+                <h2 class="section-title">🧠 Вы научитесь</h2>
+                <div class="grid grid-cols-1 gap-2 text-gray-700 text-xs sm:text-sm">
+                    <div class="flex items-start space-x-1">
+                        <i data-lucide="check-circle" class="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5"></i>
+                        <span>системно генерировать идеи и тексты под ваш бренд</span>
+                    </div>
+                    <div class="flex items-start space-x-1">
+                        <i data-lucide="check-circle" class="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5"></i>
+                        <span>экономить 5–10 часов в неделю на подготовке контента</span>
+                    </div>
+                    <div class="flex items-start space-x-1">
+                        <i data-lucide="check-circle" class="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5"></i>
+                        <span>автоматизировать публикации из одной таблицы</span>
+                    </div>
+                    <div class="flex items-start space-x-1">
+                        <i data-lucide="check-circle" class="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5"></i>
+                        <span>строить стратегию контент-вовлечения с помощью ИИ</span>
+                    </div>
+                    <div class="flex items-start space-x-1">
+                        <i data-lucide="check-circle" class="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5"></i>
+                        <span>управлять автопостингом для нескольких сообществ</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Бонусы и Ведущий в одну строку -->
+        <div class="grid md:grid-cols-2 gap-4 mb-6">
+            <div class="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                <h2 class="section-title text-yellow-800 !text-base">🎁 Бонусы участникам</h2>
+                <ul class="list-disc list-outside ml-4 text-xs sm:text-sm text-gray-700 space-y-1">
+                    <li>шаблон контент-плана с автогенерацией постов;</li>
+                    <li>промты для нейросетей по контенту и визуалам;</li>
+                    <li>видеоинструкция по настройке системы дома;</li>
+                    <li>скидка <strong>1 000 ₽</strong> на курс или настройку под ключ.</li>
+                </ul>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center space-y-3 sm:space-y-0 sm:space-x-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                <div class="flex-shrink-0 text-center">
+                    <img 
+                        src="https://i.ibb.co/846KVXTX/1-1.jpg" 
+                        alt="Никита Вахрушев" 
+                        class="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-white shadow-sm object-cover"
+                    />
+                    <h3 class="mt-1 text-sm font-bold text-gray-900">Никита Вахрушев</h3>
+                </div>
+                <div class="text-gray-700 text-xs sm:text-sm">
+                    <h2 class="section-title !text-base !mb-1 !p-0 !border-0">👨‍🏫 Ведущий</h2>
+                    <ul class="list-disc list-outside ml-4 space-y-0.5">
+                        <li>Эксперт по нейросетям, автор курса «Перспективные нейросети»,</li>
+                        <li>Куратор направления ИИ в учебном центре «Перспектива»,</li>
+                        <li>Спикер Legat Forum и Тайного Феста,</li>
+                        <li>Создатель сервиса Geeppy.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <footer class="p-4 sm:p-6 bg-gray-800 text-white text-center rounded-b-xl">
+            <h2 class="text-lg font-bold mb-2">📲 Как записаться</h2>
+            <p class="text-sm mb-4">Ответьте на это письмо или свяжитесь с Никитой:</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-4">
+                <a href="https://t.me/nikvakhrushev" target="_blank" class="cta-button inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-600">
+                    <i data-lucide="send" class="w-4 h-4 mr-1"></i>
+                    Telegram
+                </a>
+                <a href="tel:+79995868406" class="cta-button inline-flex items-center justify-center px-4 py-2 border-2 border-emerald-400 text-sm font-medium rounded-md text-emerald-400 bg-gray-700 hover:bg-gray-600">
+                    <i data-lucide="phone" class="w-4 h-4 mr-1"></i>
+                    Позвонить
+                </a>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>
