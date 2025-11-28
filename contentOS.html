@@ -4,11 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Content OS: Нейро-Редакция в Google Таблицах</title>
+    
+    <!-- Подключаем Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Подключаем Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Шрифты -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Настройка Tailwind для анимаций -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         .chart-container {
             position: relative;
             width: 100%;
@@ -17,77 +43,30 @@
             height: 300px;
             max-height: 400px;
         }
-        .code-block {
-            background-color: #1e293b;
-            color: #e2e8f0;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            font-family: monospace;
-            overflow-x: auto;
-            font-size: 0.875rem;
-        }
-        .step-card {
-            transition: all 0.3s ease;
-        }
-        .step-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        /* Custom scrollbar for cleanliness */
+        /* Кастомный скроллбар */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
         }
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9; 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1; 
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8; 
-        }
-        .interactive-node {
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .interactive-node:hover {
-            filter: brightness(1.1);
-            transform: scale(1.02);
-        }
-        .active-node {
-            ring: 2px solid #3b82f6;
-            transform: scale(1.05);
-        }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .interactive-node { cursor: pointer; transition: all 0.2s; }
+        .interactive-node:hover { filter: brightness(1.1); transform: scale(1.02); }
+        .active-node { ring: 2px solid #3b82f6; transform: scale(1.05); }
     </style>
-    <!-- Chosen Palette: Slate (Backgrounds), Emerald (Primary Action/Success), Indigo (AI/Creative), Sky (Information) -->
-    <!-- Application Structure Plan:
-         1. Hero Section: Hook and Value Proposition.
-         2. Efficiency Analysis: Chart.js visualization comparing manual vs automated workflow.
-         3. System Architecture: Interactive CSS-based diagram explaining the module relationships (App.gs <-> Services).
-         4. Installation Wizard: Step-by-step interactive tabs for setting up the Sheet and Script.
-         5. Configuration Simulator: Interactive mock table to explain Settings parameters.
-         6. Workflow Simulator: A mini-app within the app to demonstrate the AI generation and publishing flow.
-         7. PRO Modules & Troubleshooting: Expandable cards for advanced features and error fixing.
-    -->
-    <!-- Visualization & Content Choices:
-         - Time Savings Chart: Bar Chart to visualize impact.
-         - Architecture Map: CSS Flexbox/Grid layout representing the flow of data between Google Sheets and external APIs.
-         - Status Indicators: Dynamic text/color changes to simulate script execution.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 </head>
 <body class="bg-slate-50 text-slate-800">
 
     <!-- Navigation -->
-    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
-                    <div class="flex-shrink-0 flex items-center gap-2">
+                    <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="window.scrollTo(0,0)">
                         <span class="text-2xl">🦄</span>
-                        <span class="font-bold text-xl tracking-tight text-slate-900">Content OS Guide</span>
+                        <span class="font-bold text-xl tracking-tight text-slate-900">Content OS</span>
                     </div>
                 </div>
                 <div class="hidden md:flex items-center space-x-8">
@@ -95,7 +74,7 @@
                     <a href="#architecture" class="text-slate-500 hover:text-emerald-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Архитектура</a>
                     <a href="#setup" class="text-slate-500 hover:text-emerald-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Установка</a>
                     <a href="#simulator" class="text-slate-500 hover:text-emerald-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Симулятор</a>
-                    <a href="#pricing" class="text-indigo-600 hover:text-indigo-800 px-3 py-2 rounded-md text-sm font-bold transition-colors">Услуги</a>
+                    <a href="#pricing" class="text-indigo-600 hover:text-indigo-800 bg-indigo-50 hover:bg-indigo-100 px-4 py-2 rounded-full text-sm font-bold transition-colors">Услуги</a>
                 </div>
             </div>
         </div>
@@ -116,13 +95,13 @@
                         </p>
                         <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                             <div class="rounded-md shadow">
-                                <a href="#setup" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-emerald-600 hover:bg-emerald-700 md:py-4 md:text-lg md:px-10 transition-colors">
+                                <a href="#setup" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-emerald-600 hover:bg-emerald-700 md:py-4 md:text-lg md:px-10 transition-colors shadow-lg shadow-emerald-500/30">
                                     Начать сборку
                                 </a>
                             </div>
                             <div class="mt-3 sm:mt-0 sm:ml-3">
                                 <a href="#simulator" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-emerald-700 bg-emerald-100 hover:bg-emerald-200 md:py-4 md:text-lg md:px-10 transition-colors">
-                                    Демо
+                                    Попробовать демо
                                 </a>
                             </div>
                         </div>
@@ -131,7 +110,7 @@
             </div>
         </div>
         <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 bg-slate-50 flex items-center justify-center">
-            <div class="chart-container p-4">
+            <div class="chart-container p-4 w-full">
                 <canvas id="efficiencyChart"></canvas>
             </div>
         </div>
@@ -146,7 +125,7 @@
                     Модульная Архитектура
                 </p>
                 <p class="mt-4 max-w-2xl text-xl text-slate-500 mx-auto">
-                    Система состоит из 5 файлов внутри Google Apps Script. Нажмите на модуль, чтобы узнать его функцию.
+                    Система состоит из 5 файлов внутри Google Apps Script. Нажмите на модуль, чтобы узнать подробности.
                 </p>
             </div>
 
@@ -160,7 +139,7 @@
                                 <h3 class="text-lg font-bold text-slate-800">App.gs</h3>
                                 <p class="text-sm text-slate-500">Главный контроллер (Ядро)</p>
                             </div>
-                            <div class="text-2xl">🧠</div>
+                            <div class="text-3xl">🧠</div>
                         </div>
                     </div>
 
@@ -189,10 +168,11 @@
                 </div>
 
                 <!-- Info Panel -->
-                <div class="w-full lg:w-1/2 bg-white rounded-xl shadow-lg p-8 min-h-[300px] flex flex-col justify-center border border-slate-100" id="module-info-panel">
-                    <div class="text-center text-slate-400">
-                        <p class="text-4xl mb-4">👆</p>
-                        <p>Нажмите на модуль слева, чтобы увидеть подробности кода и логики.</p>
+                <div class="w-full lg:w-1/2 bg-white rounded-xl shadow-lg p-8 min-h-[300px] flex flex-col justify-center border border-slate-100 relative overflow-hidden" id="module-info-panel">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-slate-50 rounded-bl-full -mr-4 -mt-4 z-0"></div>
+                    <div class="relative z-10 text-center text-slate-400">
+                        <p class="text-5xl mb-4 opacity-50">👆</p>
+                        <p class="text-lg">Нажмите на любой модуль слева,<br>чтобы увидеть как он работает.</p>
                     </div>
                 </div>
             </div>
@@ -200,7 +180,7 @@
     </div>
 
     <!-- Installation Wizard -->
-    <div id="setup" class="py-16 bg-white">
+    <div id="setup" class="py-16 bg-white border-t border-slate-200">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-extrabold text-slate-900">Пошаговая Установка</h2>
@@ -209,53 +189,75 @@
 
             <!-- Tabs -->
             <div class="flex justify-center mb-8 border-b border-slate-200">
-                <button onclick="switchTab('step1')" class="tab-btn active-tab px-6 py-3 text-sm font-medium text-emerald-600 border-b-2 border-emerald-600 focus:outline-none">1. Таблица и Код</button>
-                <button onclick="switchTab('step2')" class="tab-btn px-6 py-3 text-sm font-medium text-slate-500 hover:text-slate-700 focus:outline-none">2. Инициализация</button>
-                <button onclick="switchTab('step3')" class="tab-btn px-6 py-3 text-sm font-medium text-slate-500 hover:text-slate-700 focus:outline-none">3. Ключи (Settings)</button>
+                <button onclick="switchTab('step1', this)" class="tab-btn active px-6 py-3 text-sm font-bold text-emerald-600 border-b-2 border-emerald-600 focus:outline-none transition-colors">1. Таблица и Код</button>
+                <button onclick="switchTab('step2', this)" class="tab-btn px-6 py-3 text-sm font-medium text-slate-500 hover:text-slate-700 focus:outline-none transition-colors">2. Инициализация</button>
+                <button onclick="switchTab('step3', this)" class="tab-btn px-6 py-3 text-sm font-medium text-slate-500 hover:text-slate-700 focus:outline-none transition-colors">3. Ключи (Settings)</button>
             </div>
 
             <!-- Content Area -->
             <div id="step1" class="tab-content block animate-fade-in">
-                <div class="bg-slate-50 rounded-xl p-6 border border-slate-200">
-                    <h3 class="text-lg font-bold text-slate-900 mb-4">Создаем базу</h3>
-                    <ol class="list-decimal list-inside space-y-3 text-slate-600">
-                        <li>Откройте <a href="https://docs.google.com/spreadsheets/" target="_blank" class="text-emerald-600 hover:underline">Google Sheets</a> и создайте новую таблицу.</li>
-                        <li>В верхнем меню выберите <strong>Расширения &rarr; Apps Script</strong>.</li>
-                        <li>Удалите файл <code>Code.gs</code>.</li>
-                        <li>Создайте 5 файлов (используя <strong>+</strong>) с именами:
-                            <ul class="list-disc list-inside ml-6 mt-2 space-y-1 text-sm font-mono text-slate-500">
-                                <li>App.gs</li>
-                                <li>AI_Service.gs</li>
-                                <li>VK_Service.gs</li>
-                                <li>TG_Service.gs</li>
-                                <li>Sidebar.html</li>
-                            </ul>
+                <div class="bg-slate-50 rounded-xl p-8 border border-slate-200">
+                    <h3 class="text-xl font-bold text-slate-900 mb-6 flex items-center">
+                        <span class="bg-emerald-100 text-emerald-600 w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm">1</span>
+                        Создаем базу
+                    </h3>
+                    <ol class="space-y-4 text-slate-700">
+                        <li class="flex items-start">
+                            <span class="mr-2 mt-1">🔹</span>
+                            <span>Откройте <a href="https://docs.google.com/spreadsheets/" target="_blank" class="text-emerald-600 font-bold hover:underline">Google Sheets</a> и создайте новую пустую таблицу.</span>
                         </li>
-                        <li>Скопируйте код в каждый файл и нажмите 💾 <strong>Сохранить</strong>.</li>
+                        <li class="flex items-start">
+                            <span class="mr-2 mt-1">🔹</span>
+                            <span>В верхнем меню выберите <strong>Расширения &rarr; Apps Script</strong>.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="mr-2 mt-1">🔹</span>
+                            <span>Удалите файл <code>Code.gs</code>.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="mr-2 mt-1">🔹</span>
+                            <div>
+                                Создайте 5 файлов (используя <strong>+</strong>) с именами:
+                                <div class="mt-2 grid grid-cols-2 sm:grid-cols-5 gap-2 text-xs font-mono text-slate-600">
+                                    <span class="bg-white p-2 rounded border text-center">App.gs</span>
+                                    <span class="bg-white p-2 rounded border text-center">AI_Service.gs</span>
+                                    <span class="bg-white p-2 rounded border text-center">VK_Service.gs</span>
+                                    <span class="bg-white p-2 rounded border text-center">TG_Service.gs</span>
+                                    <span class="bg-white p-2 rounded border text-center">Sidebar.html</span>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="mr-2 mt-1">🔹</span>
+                            <span>Вставьте готовый код в каждый файл и нажмите 💾 <strong>Сохранить</strong>.</span>
+                        </li>
                     </ol>
                 </div>
             </div>
 
             <div id="step2" class="tab-content hidden animate-fade-in">
-                <div class="bg-slate-50 rounded-xl p-6 border border-slate-200">
-                    <h3 class="text-lg font-bold text-slate-900 mb-4">Запускаем магию</h3>
-                    <div class="flex flex-col md:flex-row gap-6 items-center">
-                        <div class="flex-1 space-y-4 text-slate-600">
-                            <p>1. Обновите вкладку с таблицей (F5).</p>
-                            <p>2. В меню появится новый пункт <strong>🦄 Content AI</strong>.</p>
-                            <p>3. Выберите <strong>🏗️ Создать/Обновить структуру</strong>.</p>
-                            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 text-sm text-yellow-700">
-                                <p class="font-bold">⚠️ Разрешения</p>
-                                <p>Google попросит разрешения. Выберите аккаунт &rarr; Advanced &rarr; Go to... &rarr; Allow.</p>
+                <div class="bg-slate-50 rounded-xl p-8 border border-slate-200">
+                    <h3 class="text-xl font-bold text-slate-900 mb-6 flex items-center">
+                        <span class="bg-emerald-100 text-emerald-600 w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm">2</span>
+                        Запускаем магию
+                    </h3>
+                    <div class="flex flex-col md:flex-row gap-8 items-start">
+                        <div class="flex-1 space-y-4 text-slate-700">
+                            <p><strong>1.</strong> Обновите вкладку с таблицей (нажмите F5).</p>
+                            <p><strong>2.</strong> Подождите пару секунд, в меню появится новый пункт <strong>🦄 Content AI</strong>.</p>
+                            <p><strong>3.</strong> Нажмите: <strong>🦄 Content AI &rarr; 🏗️ Создать/Обновить структуру</strong>.</p>
+                            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 text-sm text-yellow-800 rounded-r">
+                                <p class="font-bold mb-1">⚠️ Важно:</p>
+                                <p>Google попросит разрешения при первом запуске. Это нормально, так как скрипт ваш. Нажмите: <span class="font-bold">Review Permissions &rarr; Выберите аккаунт &rarr; Advanced &rarr; Go to (unsafe) &rarr; Allow</span>.</p>
                             </div>
                         </div>
-                        <div class="flex-1 bg-white p-4 rounded shadow-sm border border-slate-100 text-center">
-                            <p class="text-sm text-slate-400 mb-2">Результат:</p>
-                            <div class="inline-block text-left bg-slate-100 p-2 rounded text-xs font-mono text-slate-600">
-                                <p>Creating 'SETTINGS' sheet...</p>
-                                <p>Adding columns: VK Token, TG Token...</p>
-                                <p>Formatting 'Content Plan' sheet...</p>
-                                <p class="text-emerald-600 font-bold">Done! ✅</p>
+                        <div class="w-full md:w-1/3 bg-white p-6 rounded-lg shadow-sm border border-slate-200 text-center">
+                            <p class="text-xs text-slate-400 uppercase tracking-widest mb-3">Лог консоли</p>
+                            <div class="text-left space-y-2 font-mono text-xs text-slate-600">
+                                <p>> Creating 'SETTINGS' sheet...</p>
+                                <p>> Generating Columns...</p>
+                                <p>> Applying styles...</p>
+                                <p class="text-emerald-600 font-bold">> Success! Structure Ready.</p>
                             </div>
                         </div>
                     </div>
@@ -263,38 +265,41 @@
             </div>
 
             <div id="step3" class="tab-content hidden animate-fade-in">
-                <div class="bg-slate-50 rounded-xl p-6 border border-slate-200">
-                    <h3 class="text-lg font-bold text-slate-900 mb-4">Заполняем SETTINGS</h3>
-                    <p class="mb-4 text-slate-600">Скрипт создал лист <strong>SETTINGS</strong>. Заполните столбец <strong>C</strong> (PROJECT 1).</p>
+                <div class="bg-slate-50 rounded-xl p-8 border border-slate-200">
+                    <h3 class="text-xl font-bold text-slate-900 mb-6 flex items-center">
+                        <span class="bg-emerald-100 text-emerald-600 w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm">3</span>
+                        Заполняем Ключи
+                    </h3>
+                    <p class="mb-6 text-slate-600">Скрипт создал лист <strong>SETTINGS</strong>. Заполните столбец <strong>C</strong> (PROJECT 1) вашими данными.</p>
                     
-                    <div class="overflow-x-auto">
+                    <div class="overflow-hidden rounded-lg border border-slate-200 shadow-sm">
                         <table class="min-w-full divide-y divide-slate-200">
                             <thead class="bg-slate-100">
                                 <tr>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Параметр</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Где взять</th>
+                                    <th class="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Параметр</th>
+                                    <th class="px-6 py-3 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Где взять</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-slate-200 text-sm">
                                 <tr>
-                                    <td class="px-6 py-4 font-mono text-slate-700">VK Token</td>
-                                    <td class="px-6 py-4 text-slate-600"><a href="#" class="text-emerald-600 underline">Kate Mobile Auth Link</a> (берем из URL после авторизации).</td>
+                                    <td class="px-6 py-4 font-mono text-indigo-600 font-medium">VK Token</td>
+                                    <td class="px-6 py-4 text-slate-600">Нужен "вечный" токен. <a href="https://oauth.vk.com/authorize?client_id=2685278&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=wall,photos,groups,offline&video,docs&response_type=token&v=5.131&revoke=1" target="_blank" class="text-emerald-600 font-bold hover:underline">Получить токен Kate Mobile</a> (скопируйте часть URL).</td>
                                 </tr>
                                 <tr>
-                                    <td class="px-6 py-4 font-mono text-slate-700">VK Group ID</td>
+                                    <td class="px-6 py-4 font-mono text-indigo-600 font-medium">VK Group ID</td>
                                     <td class="px-6 py-4 text-slate-600">Цифры из адреса группы (без минуса).</td>
                                 </tr>
                                 <tr>
-                                    <td class="px-6 py-4 font-mono text-slate-700">TG Bot Token</td>
-                                    <td class="px-6 py-4 text-slate-600">Пишем @BotFather: <code>/newbot</code>.</td>
+                                    <td class="px-6 py-4 font-mono text-indigo-600 font-medium">TG Bot Token</td>
+                                    <td class="px-6 py-4 text-slate-600">Напишите @BotFather: <code>/newbot</code>.</td>
                                 </tr>
                                 <tr>
-                                    <td class="px-6 py-4 font-mono text-slate-700">Gemini Key</td>
-                                    <td class="px-6 py-4 text-slate-600"><a href="https://aistudio.google.com/" target="_blank" class="text-emerald-600 underline">Google AI Studio</a>.</td>
+                                    <td class="px-6 py-4 font-mono text-indigo-600 font-medium">Gemini Key</td>
+                                    <td class="px-6 py-4 text-slate-600"><a href="https://aistudio.google.com/" target="_blank" class="text-emerald-600 font-bold hover:underline">Google AI Studio</a>.</td>
                                 </tr>
                                 <tr>
-                                    <td class="px-6 py-4 font-mono text-slate-700">Google Drive ID</td>
-                                    <td class="px-6 py-4 text-slate-600">ID папки из адресной строки браузера.</td>
+                                    <td class="px-6 py-4 font-mono text-indigo-600 font-medium">Google Drive ID</td>
+                                    <td class="px-6 py-4 text-slate-600">ID папки из адресной строки браузера (после folders/).</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -305,7 +310,7 @@
     </div>
 
     <!-- Simulator Section -->
-    <div id="simulator" class="py-16 bg-slate-100">
+    <div id="simulator" class="py-16 bg-slate-100 border-t border-slate-200">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-extrabold text-slate-900">Симулятор Работы</h2>
@@ -329,38 +334,38 @@
                             </thead>
                             <tbody>
                                 <tr class="bg-slate-50 cursor-pointer hover:bg-yellow-50 transition-colors" onclick="selectRow(this)" id="demo-row">
-                                    <td class="p-2 border-r border-b">Post</td>
-                                    <td class="p-2 border-r border-b">Как вставать в 6 утра?</td>
+                                    <td class="p-2 border-r border-b font-mono text-slate-600">Post</td>
+                                    <td class="p-2 border-r border-b font-medium text-slate-800">Как вставать в 6 утра?</td>
                                     <td class="p-2 border-r border-b text-slate-400 italic" id="demo-text">...</td>
-                                    <td class="p-2 border-b font-mono" id="demo-status">Idea</td>
+                                    <td class="p-2 border-b font-mono text-slate-500" id="demo-status">Idea</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div class="mt-4 p-3 bg-slate-50 rounded border border-slate-200 h-32 flex items-center justify-center text-slate-400 text-sm" id="demo-image-box">
-                        [Здесь будет картинка]
+                    <div class="mt-4 p-3 bg-slate-50 rounded border border-slate-200 h-32 flex items-center justify-center text-slate-400 text-sm overflow-hidden relative" id="demo-image-box">
+                        <span class="z-10">[Здесь будет картинка]</span>
                     </div>
                 </div>
 
                 <!-- Mock Sidebar -->
-                <div class="w-full md:w-64 bg-slate-50 p-4 flex flex-col gap-3 border-l border-slate-200">
+                <div class="w-full md:w-64 bg-slate-50 p-4 flex flex-col gap-3 border-l border-slate-200 shadow-inner">
                     <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Content OS Sidebar</div>
                     
-                    <button onclick="simGenerate()" id="btn-sim-gen" class="w-full py-2 px-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded shadow-sm hover:opacity-90 text-sm font-medium transition-all flex items-center justify-center gap-2">
+                    <button onclick="simGenerate()" id="btn-sim-gen" class="w-full py-2 px-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded shadow-sm hover:opacity-90 text-sm font-medium transition-all flex items-center justify-center gap-2 transform active:scale-95">
                         ✨ Создать контент
                     </button>
                     
-                    <button onclick="simUpload()" class="w-full py-2 px-3 bg-blue-500 text-white rounded shadow-sm hover:bg-blue-600 text-sm font-medium transition-all flex items-center justify-center gap-2">
+                    <button onclick="simUpload()" class="w-full py-2 px-3 bg-blue-500 text-white rounded shadow-sm hover:bg-blue-600 text-sm font-medium transition-all flex items-center justify-center gap-2 transform active:scale-95">
                         📂 Загрузить файл
                     </button>
 
                     <hr class="border-slate-200 my-1">
 
-                    <button onclick="simPublish()" id="btn-sim-pub" class="w-full py-2 px-3 bg-emerald-500 text-white rounded shadow-sm hover:bg-emerald-600 text-sm font-medium transition-all flex items-center justify-center gap-2" disabled>
+                    <button onclick="simPublish()" id="btn-sim-pub" class="w-full py-2 px-3 bg-emerald-500 text-white rounded shadow-sm hover:bg-emerald-600 text-sm font-medium transition-all flex items-center justify-center gap-2 transform active:scale-95 opacity-50 cursor-not-allowed" disabled>
                         📤 Опубликовать
                     </button>
 
-                    <div class="mt-auto bg-slate-800 text-green-400 p-2 rounded font-mono text-[10px] h-24 overflow-y-auto" id="sim-console">
+                    <div class="mt-auto bg-slate-900 text-green-400 p-2 rounded font-mono text-[10px] h-24 overflow-y-auto" id="sim-console">
                         > Готов к работе...
                     </div>
                 </div>
@@ -374,27 +379,27 @@
             <h2 class="text-3xl font-extrabold text-slate-900 mb-8 text-center">PRO Возможности</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Story Card -->
-                <div class="bg-gradient-to-br from-pink-50 to-rose-50 rounded-xl p-6 border border-pink-100 hover:shadow-lg transition-shadow">
-                    <div class="text-3xl mb-4">📸</div>
+                <div class="bg-white rounded-xl p-6 border border-slate-100 shadow-lg hover:shadow-xl transition-all group">
+                    <div class="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">📸</div>
                     <h3 class="text-xl font-bold text-slate-800 mb-2">Telegram & VK Stories</h3>
-                    <p class="text-slate-600 text-sm mb-4">Публикуйте исчезающий контент. Для Telegram требуется Premium и Business Connection ID.</p>
-                    <div class="text-xs font-mono bg-white p-2 rounded border border-pink-200">Тип: Story<br>Формат: 9:16<br>Подпись: Да</div>
+                    <p class="text-slate-600 text-sm mb-4">Публикуйте исчезающий контент. Поддержка видео и подписей.</p>
+                    <div class="text-xs font-mono bg-pink-50 text-pink-700 p-2 rounded border border-pink-100">Тип: Story • 9:16 • Подпись</div>
                 </div>
 
                 <!-- Cloudinary Card -->
-                <div class="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-xl p-6 border border-cyan-100 hover:shadow-lg transition-shadow">
-                    <div class="text-3xl mb-4">🖼️</div>
+                <div class="bg-white rounded-xl p-6 border border-slate-100 shadow-lg hover:shadow-xl transition-all group">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">🖼️</div>
                     <h3 class="text-xl font-bold text-slate-800 mb-2">Баннеры Cloudinary</h3>
-                    <p class="text-slate-600 text-sm mb-4">Генерация картинок по шаблону. Идеально для цитат и новостей. Экономит токены AI.</p>
-                    <div class="text-xs font-mono bg-white p-2 rounded border border-cyan-200">Промпт: (пусто)<br>Тема: Текст на фото</div>
+                    <p class="text-slate-600 text-sm mb-4">Автоматическая генерация картинок с заголовками по вашему шаблону.</p>
+                    <div class="text-xs font-mono bg-blue-50 text-blue-700 p-2 rounded border border-blue-100">Шаблоны • Авто-текст • Брендинг</div>
                 </div>
 
                 <!-- Manual Upload Card -->
-                <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl p-6 border border-amber-100 hover:shadow-lg transition-shadow">
-                    <div class="text-3xl mb-4">📂</div>
+                <div class="bg-white rounded-xl p-6 border border-slate-100 shadow-lg hover:shadow-xl transition-all group">
+                    <div class="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform">📂</div>
                     <h3 class="text-xl font-bold text-slate-800 mb-2">Свои файлы</h3>
-                    <p class="text-slate-600 text-sm mb-4">Загружайте готовые видео и фото с компьютера. Скрипт сам закинет их на Диск и получит ссылку.</p>
-                    <div class="text-xs font-mono bg-white p-2 rounded border border-amber-200">Лимит: 50MB<br>Поддержка: MP4, JPG</div>
+                    <p class="text-slate-600 text-sm mb-4">Загружайте готовые видео и фото с компьютера. Скрипт сам закинет их на Диск.</p>
+                    <div class="text-xs font-mono bg-amber-50 text-amber-700 p-2 rounded border border-amber-100">Лимит 50MB • MP4/JPG • Google Drive</div>
                 </div>
             </div>
         </div>
@@ -408,30 +413,30 @@
                 <details class="group bg-slate-800 rounded-lg p-4 cursor-pointer">
                     <summary class="font-medium text-white flex justify-between items-center">
                         VK Error (214): Access denied
-                        <span class="transform group-open:rotate-180 transition-transform">▼</span>
+                        <span class="transform group-open:rotate-180 transition-transform text-slate-500">▼</span>
                     </summary>
-                    <p class="mt-3 text-sm text-slate-400">Стена закрыта или вы пытаетесь писать на личную страницу с настройкой "Group". Проверьте права администратора и тип цели в SETTINGS.</p>
+                    <p class="mt-3 text-sm text-slate-400 pl-4 border-l-2 border-slate-600">Стена закрыта или вы пытаетесь писать на личную страницу с настройкой "Group". Проверьте права администратора и тип цели в SETTINGS.</p>
                 </details>
                 <details class="group bg-slate-800 rounded-lg p-4 cursor-pointer">
                     <summary class="font-medium text-white flex justify-between items-center">
                         TG: chat not found (400)
-                        <span class="transform group-open:rotate-180 transition-transform">▼</span>
+                        <span class="transform group-open:rotate-180 transition-transform text-slate-500">▼</span>
                     </summary>
-                    <p class="mt-3 text-sm text-slate-400">1. Добавьте бота в Администраторы канала.<br>2. ID канала должен начинаться с -100 (для частных).</p>
+                    <p class="mt-3 text-sm text-slate-400 pl-4 border-l-2 border-slate-600">1. Добавьте бота в Администраторы канала.<br>2. ID канала должен начинаться с -100 (для частных).</p>
                 </details>
                 <details class="group bg-slate-800 rounded-lg p-4 cursor-pointer">
                     <summary class="font-medium text-white flex justify-between items-center">
                         #ERROR! в формулах превью
-                        <span class="transform group-open:rotate-180 transition-transform">▼</span>
+                        <span class="transform group-open:rotate-180 transition-transform text-slate-500">▼</span>
                     </summary>
-                    <p class="mt-3 text-sm text-slate-400">Ошибка локализации. Нажмите "🏗️ Создать/Обновить структуру" в меню таблицы, скрипт перезапишет формулы на универсальные.</p>
+                    <p class="mt-3 text-sm text-slate-400 pl-4 border-l-2 border-slate-600">Ошибка локализации Google Таблиц. Нажмите "🏗️ Создать/Обновить структуру" в меню, скрипт перезапишет формулы на универсальные.</p>
                 </details>
             </div>
         </div>
     </div>
 
     <!-- Pricing Section -->
-    <div id="pricing" class="py-16 bg-white border-t border-slate-200">
+    <div id="pricing" class="py-20 bg-white border-t border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-extrabold text-slate-900">Готовые Решения</h2>
@@ -447,21 +452,21 @@
                     <div class="my-6">
                         <span class="text-4xl font-extrabold text-slate-900">9 990 ₽</span>
                     </div>
-                    <ul class="space-y-3 mb-8 flex-1">
+                    <ul class="space-y-4 mb-8 flex-1">
                         <li class="flex items-start">
-                            <span class="text-emerald-500 mr-2">✓</span>
-                            <span class="text-slate-600 text-sm">Полный PDF гайд со скриншотами</span>
+                            <span class="text-emerald-500 mr-2 font-bold">✓</span>
+                            <span class="text-slate-700 text-sm">Полный PDF гайд со скриншотами</span>
                         </li>
                         <li class="flex items-start">
-                            <span class="text-emerald-500 mr-2">✓</span>
-                            <span class="text-slate-600 text-sm">Все готовые коды (App.gs, Services)</span>
+                            <span class="text-emerald-500 mr-2 font-bold">✓</span>
+                            <span class="text-slate-700 text-sm">Все готовые коды (App.gs, Services)</span>
                         </li>
                         <li class="flex items-start">
-                            <span class="text-emerald-500 mr-2">✓</span>
-                            <span class="text-slate-600 text-sm">Видео-уроки по настройке</span>
+                            <span class="text-emerald-500 mr-2 font-bold">✓</span>
+                            <span class="text-slate-700 text-sm">Видео-уроки по настройке</span>
                         </li>
                     </ul>
-                    <a href="https://t.me/nikvakhrushev" target="_blank" class="w-full block text-center bg-white border border-indigo-500 text-indigo-600 font-bold py-3 rounded-lg hover:bg-indigo-50 transition-colors">
+                    <a href="https://t.me/nikvakhrushev" target="_blank" class="w-full block text-center bg-white border-2 border-indigo-500 text-indigo-600 font-bold py-3 rounded-xl hover:bg-indigo-50 transition-colors">
                         Купить Инструкцию
                     </a>
                 </div>
@@ -474,25 +479,25 @@
                     <div class="my-6">
                         <span class="text-4xl font-extrabold text-white">29 990 ₽</span>
                     </div>
-                    <ul class="space-y-3 mb-8 flex-1">
+                    <ul class="space-y-4 mb-8 flex-1">
                         <li class="flex items-start">
-                            <span class="text-emerald-400 mr-2">✓</span>
+                            <span class="text-emerald-400 mr-2 font-bold">✓</span>
                             <span class="text-slate-300 text-sm">Полная установка скриптов</span>
                         </li>
                         <li class="flex items-start">
-                            <span class="text-emerald-400 mr-2">✓</span>
+                            <span class="text-emerald-400 mr-2 font-bold">✓</span>
                             <span class="text-slate-300 text-sm">Подключение API ключей (VK, TG, AI)</span>
                         </li>
                         <li class="flex items-start">
-                            <span class="text-emerald-400 mr-2">✓</span>
+                            <span class="text-emerald-400 mr-2 font-bold">✓</span>
                             <span class="text-slate-300 text-sm">Настройка Cloudinary и Drive</span>
                         </li>
                         <li class="flex items-start">
-                            <span class="text-emerald-400 mr-2">✓</span>
+                            <span class="text-emerald-400 mr-2 font-bold">✓</span>
                             <span class="text-slate-300 text-sm">Персональная консультация</span>
                         </li>
                     </ul>
-                    <a href="https://t.me/nikvakhrushev" target="_blank" class="w-full block text-center bg-emerald-500 text-white font-bold py-3 rounded-lg hover:bg-emerald-600 transition-colors shadow-lg shadow-emerald-500/30">
+                    <a href="https://t.me/nikvakhrushev" target="_blank" class="w-full block text-center bg-emerald-500 text-white font-bold py-3 rounded-xl hover:bg-emerald-600 transition-colors shadow-lg shadow-emerald-500/30">
                         Заказать Настройку
                     </a>
                 </div>
@@ -532,16 +537,16 @@
         });
 
         // Tab Switching Logic
-        function switchTab(tabId) {
+        function switchTab(tabId, btn) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.getElementById(tabId).classList.remove('hidden');
             
             document.querySelectorAll('.tab-btn').forEach(el => {
-                el.classList.remove('text-emerald-600', 'border-b-2', 'border-emerald-600', 'active-tab');
-                el.classList.add('text-slate-500');
+                el.classList.remove('text-emerald-600', 'border-b-2', 'border-emerald-600', 'active', 'font-bold');
+                el.classList.add('text-slate-500', 'font-medium');
             });
-            event.target.classList.remove('text-slate-500');
-            event.target.classList.add('text-emerald-600', 'border-b-2', 'border-emerald-600', 'active-tab');
+            btn.classList.remove('text-slate-500', 'font-medium');
+            btn.classList.add('text-emerald-600', 'border-b-2', 'border-emerald-600', 'active', 'font-bold');
         }
 
         // Architecture Interaction
@@ -577,15 +582,16 @@
             const panel = document.getElementById('module-info-panel');
             const data = modules[mod];
             
-            // Highlight active node
             document.querySelectorAll('.interactive-node').forEach(el => el.classList.remove('active-node'));
             event.currentTarget.classList.add('active-node');
 
             panel.innerHTML = `
-                <h3 class="text-xl font-bold text-slate-800 mb-2">${data.title}</h3>
-                <p class="text-slate-600 mb-4">${data.desc}</p>
-                <div class="bg-slate-900 text-emerald-400 p-3 rounded-lg text-xs font-mono overflow-x-auto">
-                    <pre>${data.code}</pre>
+                <div class="animate-fade-in">
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">${data.title}</h3>
+                    <p class="text-slate-600 mb-4">${data.desc}</p>
+                    <div class="bg-slate-900 text-emerald-400 p-3 rounded-lg text-xs font-mono overflow-x-auto shadow-inner">
+                        <pre>${data.code}</pre>
+                    </div>
                 </div>
             `;
         }
@@ -593,7 +599,7 @@
         // Simulation Logic
         function simLog(msg) {
             const consoleEl = document.getElementById('sim-console');
-            consoleEl.innerHTML += `<div>> ${msg}</div>`;
+            consoleEl.innerHTML += `<div class="mb-1 border-b border-slate-800 pb-1">> ${msg}</div>`;
             consoleEl.scrollTop = consoleEl.scrollHeight;
         }
 
@@ -608,18 +614,24 @@
             const btn = document.getElementById('btn-sim-gen');
             btn.disabled = true;
             btn.innerHTML = '⏳ Думаю...';
+            btn.classList.add('opacity-75');
             
             setTimeout(() => {
                 document.getElementById('demo-text').innerText = "Вставать в 6 утра легко! 🌞 Вот 5 советов...";
                 document.getElementById('demo-text').classList.remove('text-slate-400', 'italic');
                 document.getElementById('demo-status').innerText = "Generated";
                 document.getElementById('demo-status').className = "p-2 border-b font-mono text-purple-600 font-bold";
-                document.getElementById('demo-image-box').innerHTML = '<div class="w-full h-full bg-indigo-100 flex items-center justify-center text-indigo-500 font-bold">AI IMAGE</div>';
+                document.getElementById('demo-image-box').innerHTML = '<div class="w-full h-full bg-indigo-100 flex items-center justify-center text-indigo-500 font-bold animate-pulse">AI IMAGE</div>';
                 simLog('Текст и Картинка созданы!');
                 
                 btn.disabled = false;
                 btn.innerHTML = '✨ Создать контент';
-                document.getElementById('btn-sim-pub').disabled = false;
+                btn.classList.remove('opacity-75');
+                const pubBtn = document.getElementById('btn-sim-pub');
+                pubBtn.disabled = false;
+                pubBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                pubBtn.classList.add('animate-bounce');
+                setTimeout(() => pubBtn.classList.remove('animate-bounce'), 1000);
             }, 1500);
         }
 
@@ -630,18 +642,27 @@
                 document.getElementById('demo-status').innerText = "Generated";
                 document.getElementById('demo-text').innerText = "(Ваш файл)";
                 simLog('Файл загружен на Диск');
-                document.getElementById('btn-sim-pub').disabled = false;
+                const pubBtn = document.getElementById('btn-sim-pub');
+                pubBtn.disabled = false;
+                pubBtn.classList.remove('opacity-50', 'cursor-not-allowed');
             }, 1000);
         }
 
         function simPublish() {
+            const btn = document.getElementById('btn-sim-pub');
+            btn.disabled = true;
+            btn.innerHTML = '⏳ Отправка...';
             simLog('Публикация в VK...');
+            
             setTimeout(() => {
                 simLog('Публикация в TG...');
                 setTimeout(() => {
                     document.getElementById('demo-status').innerText = "Posted";
                     document.getElementById('demo-status').className = "p-2 border-b font-mono text-emerald-600 font-bold";
                     simLog('✅ УСПЕХ! Ссылки созданы.');
+                    btn.innerHTML = '📤 Опубликовано';
+                    btn.classList.add('bg-slate-400', 'cursor-not-allowed');
+                    btn.classList.remove('bg-emerald-500', 'hover:bg-emerald-600');
                 }, 800);
             }, 800);
         }
