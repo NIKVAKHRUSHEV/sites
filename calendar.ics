@@ -1,0 +1,111 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//KodRealnosti//TrainingProgram//RU
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+
+BEGIN:VEVENT
+UID:kod-realnosti-2025-01@calendar
+SUMMARY:Код Реальности — Практика соединения
+DTSTART;VALUE=DATE:20251207
+DTEND;VALUE=DATE:20251208
+DESCRIPTION:Настройка на своё поле\, формирование внутреннего отклика и чувствования движения энергии.
+END:VEVENT
+
+BEGIN:VEVENT
+UID:kod-realnosti-2025-02@calendar
+SUMMARY:Код Реальности — Теория Хроник Акаши
+DTSTART;VALUE=DATE:20251210
+DTEND;VALUE=DATE:20251211
+DESCRIPTION:Разбор структуры поля\, принципов считывания\, безопасности\, типов запросов и полевой логики.
+END:VEVENT
+
+BEGIN:VEVENT
+UID:kod-realnosti-2025-03@calendar
+SUMMARY:Код Реальности — Энергетическая чистка
+DTSTART;VALUE=DATE:20251211
+DTEND;VALUE=DATE:20251218
+DESCRIPTION:Глубокая работа по снятию внутренних блоков\, выравниванию энергетики и подготовке канала.
+END:VEVENT
+
+BEGIN:VEVENT
+UID:kod-realnosti-2025-04@calendar
+SUMMARY:Код Реальности — Работа с Хрониками
+DTSTART;VALUE=DATE:20251218
+DTEND;VALUE=DATE:20251219
+DESCRIPTION:Техника входа\, формулировка вопросов\, различение сигналов поля от мыслей\, удержание состояния.
+END:VEVENT
+
+BEGIN:VEVENT
+UID:kod-realnosti-2025-05@calendar
+SUMMARY:Код Реальности — Подготовка сознания
+DTSTART;VALUE=DATE:20251219
+DTEND;VALUE=DATE:20251220
+DESCRIPTION:Снятие ментального напряжения\, работа с контролем\, мягкое переключение в расширенное восприятие.
+END:VEVENT
+
+BEGIN:VEVENT
+UID:kod-realnosti-2025-06@calendar
+SUMMARY:Код Реальности — Самостоятельная практика
+DTSTART;VALUE=DATE:20251223
+DTEND;VALUE=DATE:20251228
+DESCRIPTION:Первые входы под кураторством\, укрепление навыка и развитие чувствительности.
+END:VEVENT
+
+BEGIN:VEVENT
+UID:kod-realnosti-2025-07@calendar
+SUMMARY:Код Реальности — Работа с клиентом
+DTSTART;VALUE=DATE:20251228
+DTEND;VALUE=DATE:20251229
+DESCRIPTION:Структура сессии\, этика\, сопровождение клиента и завершение работы.
+END:VEVENT
+
+BEGIN:VEVENT
+UID:kod-realnosti-2025-08@calendar
+SUMMARY:Код Реальности — Практика в парах (1-я часть)
+DTSTART;VALUE=DATE:20251229
+DTEND;VALUE=DATE:20251231
+DESCRIPTION:Работа в формате «клиент–мастер»\, отработка навыков\, поддержка психолога.
+END:VEVENT
+
+BEGIN:VEVENT
+UID:kod-realnosti-2026-01@calendar
+SUMMARY:Код Реальности — Практика в парах (2-я часть)
+DTSTART;VALUE=DATE:20260109
+DTEND;VALUE=DATE:20260114
+DESCRIPTION:Продолжение практики в тандемах\, итоговые сессии и поддержка.
+END:VEVENT
+
+BEGIN:VEVENT
+UID:kod-realnosti-2026-02@calendar
+SUMMARY:Код Реальности — Психология мастера
+DTSTART;VALUE=DATE:20260114
+DTEND;VALUE=DATE:20260115
+DESCRIPTION:Работа с устойчивостью\, границами\, состоянием мастера.
+END:VEVENT
+
+BEGIN:VEVENT
+UID:kod-realnosti-2026-03@calendar
+SUMMARY:Код Реальности — Нейросети и контент
+DTSTART;VALUE=DATE:20260116
+DTEND;VALUE=DATE:20260117
+DESCRIPTION:Использование нейросетей\, формирование контент-плана и визуального языка.
+END:VEVENT
+
+BEGIN:VEVENT
+UID:kod-realnosti-2026-04@calendar
+SUMMARY:Код Реальности — Простая магия маркетинга (бонус)
+DTSTART;VALUE=DATE:20260118
+DTEND;VALUE=DATE:20260119
+DESCRIPTION:Практика экологичного маркетинга\, честная подача себя и создание потока клиентов.
+END:VEVENT
+
+BEGIN:VEVENT
+UID:kod-realnosti-2026-05@calendar
+SUMMARY:Код Реальности — Защита
+DTSTART;VALUE=DATE:20260120
+DTEND;VALUE=DATE:20260121
+DESCRIPTION:Техники безопасности и настройка индивидуального контура мастера.
+END:VEVENT
+
+END:VCALENDAR
