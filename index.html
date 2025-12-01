@@ -7,6 +7,8 @@
 <!-- Шрифты -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
 
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
 <style>
 html, body {
   margin: 0;
@@ -27,16 +29,8 @@ body {
   overflow-x: hidden;
 }
 
-/* Контейнер */
-.container {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 40px 30px 60px;
-  position: relative;
-  z-index: 1;
-}
+/* ========= ГЛИФЫ / КОД РЕАЛЬНОСТИ ========= */
 
-/* Золотой «код реальности» — полупрозрачные столбцы символов */
 .code-column {
   position: fixed;
   top: -40px;
@@ -55,19 +49,15 @@ body {
   text-shadow:
     0 0 12px rgba(255,225,185,0.55),
     0 0 30px rgba(255,230,190,0.35);
+  z-index: 0;
 }
-.code-column.left {
-  left: 2%;
-}
-.code-column.right {
-  right: 2%;
-}
+.code-column.left { left: 2%; }
+.code-column.right { right: 2%; }
 
-/* Дополнительный мягкий сигил */
 .glyph-circle {
   position: fixed;
   left: 50%;
-  top: 18%;
+  top: 16%;
   width: 420px;
   height: 420px;
   transform: translateX(-50%);
@@ -78,9 +68,152 @@ body {
     0 0 110px rgba(255,220,155,0.22);
   opacity: 0.16;
   pointer-events: none;
+  z-index: 0;
 }
 
-/* Титул */
+/* ========= ЛЕЙАУТ ========= */
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 80px 30px 60px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ========= ХЕДЕР / МЕНЮ ========= */
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  backdrop-filter: blur(16px);
+  background: linear-gradient(to bottom,
+    rgba(10,8,14,0.9),
+    rgba(10,8,14,0.65),
+    transparent
+  );
+  z-index: 10;
+  border-bottom: 1px solid rgba(255,220,160,0.18);
+}
+
+.header-logo {
+  font-family: "Playfair Display", serif;
+  font-size: 20px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #f6e3bf;
+}
+
+.header-logo span {
+  font-size: 12px;
+  display: block;
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #dcd3c7;
+}
+
+/* Десктоп-меню */
+.nav {
+  display: flex;
+  gap: 22px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.nav a {
+  color: #e8e0d4;
+  text-decoration: none;
+  opacity: 0.8;
+}
+.nav a:hover {
+  opacity: 1;
+}
+
+/* Мобильный гамбургер */
+.burger {
+  display: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid rgba(250,220,160,0.6);
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 0 0, rgba(255,240,210,0.35), transparent 60%);
+  cursor: pointer;
+}
+.burger-lines {
+  width: 16px;
+  height: 2px;
+  background: #f6e3bf;
+  position: relative;
+}
+.burger-lines::before,
+.burger-lines::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 16px;
+  height: 2px;
+  background: #f6e3bf;
+}
+.burger-lines::before { top: -5px; }
+.burger-lines::after { top: 5px; }
+
+/* Мобильное меню (эзотерическое) */
+.mobile-nav {
+  position: fixed;
+  top: 56px;
+  left: 12px;
+  right: 12px;
+  border-radius: 18px;
+  background: rgba(15,10,20,0.96);
+  border: 1px solid rgba(250,220,160,0.35);
+  box-shadow:
+    0 18px 40px rgba(0,0,0,0.85),
+    inset 0 0 24px rgba(255,226,180,0.18);
+  padding: 14px 18px 10px;
+  display: none;
+  z-index: 20;
+}
+.mobile-nav.open { display: block; }
+
+.mobile-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.mobile-nav li {
+  border-bottom: 1px solid rgba(255,220,160,0.18);
+  padding: 10px 0;
+}
+.mobile-nav li:last-child {
+  border-bottom: none;
+}
+.mobile-nav a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #f4e6cf;
+  text-decoration: none;
+}
+.mobile-nav .glyph {
+  font-size: 16px;
+}
+
+/* ========= ТИТУЛ ========= */
+
 .title {
   font-family: "Playfair Display", serif;
   font-weight: 900;
@@ -105,7 +238,6 @@ body {
   opacity: 0.95;
 }
 
-/* Подзаголовок */
 .subtitle {
   max-width: 760px;
   margin: 16px auto 34px;
@@ -118,7 +250,14 @@ body {
   color: #dcd3c7;
 }
 
-/* Кнопка календаря */
+/* ========= КНОПКА КАЛЕНДАРЯ ========= */
+
+.calendar-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
 .calendar-btn {
   display: inline-flex;
   align-items: center;
@@ -136,21 +275,31 @@ body {
   letter-spacing: 0.16em;
   text-transform: uppercase;
   text-decoration: none;
-  margin: 0 auto 40px;
-  display: flex;
-  max-width: 420px;
   box-shadow:
     0 10px 26px rgba(0,0,0,0.65),
     0 0 18px rgba(255,230,190,0.6);
+  text-align: center;
 }
 .calendar-btn span {
   font-size: 18px;
 }
 
-/* Первый текстовый блок */
+/* ========= БЛОК "О ПРОГРАММЕ" ========= */
+
+.section {
+  margin-bottom: 50px;
+}
+.section-title {
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #f0d9a4;
+  margin-bottom: 18px;
+}
 .lead-text {
   max-width: 780px;
-  margin: 0 auto 40px;
+  margin: 0 auto;
   text-align: center;
   font-size: 17px;
   line-height: 1.75;
@@ -161,15 +310,8 @@ body {
   color: #f0d9a4;
 }
 
-/* Спикеры */
-.masters-title {
-  font-family: "Montserrat", sans-serif;
-  font-size: 16px;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: #f0d9a4;
-  margin-bottom: 18px;
-}
+/* ========= СПИКЕРЫ ========= */
+
 .masters {
   display: flex;
   gap: 18px;
@@ -226,14 +368,14 @@ body {
   color: #e8e2d9;
 }
 
-/* Модули */
+/* ========= МОДУЛИ ========= */
+
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 22px;
 }
 
-/* Карточка модуля */
 .card {
   background: rgba(22,18,29,0.95);
   border-radius: 24px;
@@ -246,7 +388,7 @@ body {
   overflow: hidden;
 }
 
-/* Сигил */
+/* сигил */
 .card::before {
   content: "";
   position: absolute;
@@ -260,7 +402,7 @@ body {
   opacity: 0.18;
 }
 
-/* Номер модуля */
+/* номер модуля */
 .card-number {
   position: absolute;
   right: 18px;
@@ -271,17 +413,15 @@ body {
   color: rgba(255,238,200,0.11);
 }
 
-/* Иконка модуля */
-.card-icon {
-  font-size: 26px;
-  margin-right: 10px;
-}
-
-/* Заголовочная часть карточки */
+/* иконка модуля */
 .card-header {
   display: flex;
   align-items: center;
   margin-bottom: 6px;
+}
+.card-icon {
+  font-size: 26px;
+  margin-right: 10px;
 }
 .card-title {
   font-family: "Montserrat", sans-serif;
@@ -291,8 +431,6 @@ body {
   text-transform: uppercase;
   color: #f8e2b6;
 }
-
-/* Даты */
 .card-dates {
   font-family: "Montserrat", sans-serif;
   font-size: 14px;
@@ -307,7 +445,6 @@ body {
   margin-bottom: 22px;
 }
 
-/* Текст внутри модулей */
 .card p {
   margin: 14px 0;
   font-size: 16px;
@@ -325,7 +462,8 @@ body {
   margin-bottom: 6px;
 }
 
-/* Бонусный блок */
+/* ========= БОНУС ========= */
+
 .bonus {
   margin-top: 40px;
   padding: 30px 26px 32px;
@@ -348,9 +486,7 @@ body {
   align-items: center;
   gap: 10px;
 }
-.bonus-title span {
-  font-size: 24px;
-}
+.bonus-title span { font-size: 24px; }
 .bonus p {
   margin: 14px 0;
   font-size: 16px;
@@ -366,7 +502,8 @@ body {
   color: #f8dba9;
 }
 
-/* Подвал */
+/* ========= ПОДВАЛ ========= */
+
 footer {
   margin-top: 46px;
   text-align: center;
@@ -378,22 +515,102 @@ footer {
   opacity: 0.88;
 }
 
-/* Адаптив */
+/* ========= АДАПТИВ ========= */
+
+@media (max-width: 1100px) {
+  .code-column.left,
+  .code-column.right {
+    opacity: 0.06;
+    font-size: 12px;
+  }
+  .glyph-circle {
+    width: 320px;
+    height: 320px;
+    top: 18%;
+  }
+}
+
 @media (max-width: 860px) {
-  .grid { grid-template-columns: 1fr; }
-  .masters { flex-wrap: wrap; }
-  .master { flex: 1 1 100%; }
-  .title { font-size: 44px; }
-  .title span { font-size: 14px; letter-spacing: 0.28em; }
-  body { font-size: 16px; }
-  .calendar-btn { font-size: 12px; letter-spacing: 0.12em; }
+  .container {
+    padding: 78px 18px 40px;
+  }
+
+  .nav {
+    display: none;
+  }
+  .burger {
+    display: inline-flex;
+  }
+
+  .code-column.left,
+  .code-column.right {
+    display: none;
+  }
+  .glyph-circle {
+    width: 260px;
+    height: 260px;
+    top: 22%;
+    opacity: 0.2;
+  }
+
+  .title {
+    font-size: 40px;
+  }
+  .title span {
+    font-size: 13px;
+    letter-spacing: 0.26em;
+  }
+  .subtitle {
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    margin-bottom: 26px;
+  }
+
+  .calendar-btn {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    padding: 10px 16px;
+  }
+
+  .masters {
+    flex-wrap: wrap;
+  }
+  .master {
+    flex: 1 1 100%;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 540px) {
+  .title {
+    font-size: 34px;
+  }
+  .title span {
+    font-size: 11px;
+  }
+  .subtitle {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+  }
+  .lead-text {
+    font-size: 15px;
+  }
+  .card {
+    padding: 22px 18px 30px;
+  }
+  .card-number {
+    font-size: 70px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- Золотой «код» по бокам -->
+<!-- Глифы / код по бокам -->
 <div class="code-column left">
 𓂀 ᚨ ᚱ ᚾ ✶ ᛟ ᚲ ✺ ᚷ ✧ ᛃ ✴ ᛉ ✹ ᚾ ✶ ᛈ ✷ ᛞ ✶ ᚾ ✺ ᛇ ✧ ᚾ ✶
 </div>
@@ -402,224 +619,291 @@ footer {
 </div>
 <div class="glyph-circle"></div>
 
+<!-- ХЕДЕР -->
+<header class="header">
+  <div class="header-logo">
+    Код Реальности
+    <span>Обучающая программа</span>
+  </div>
+
+  <nav class="nav">
+    <a href="#about">𓂀 О программе</a>
+    <a href="#team">✧ Спикеры</a>
+    <a href="#modules">𓆃 Модули</a>
+    <a href="#bonus">✦ Бонус</a>
+    <a href="#calendar-anchor">⧉ Календарь</a>
+  </nav>
+
+  <button class="burger" id="burger" aria-label="Открыть меню">
+    <div class="burger-lines"></div>
+  </button>
+</header>
+
+<!-- Мобильное меню -->
+<nav class="mobile-nav" id="mobileNav">
+  <ul>
+    <li><a href="#about"><span class="glyph">𓂀</span>О программе</a></li>
+    <li><a href="#team"><span class="glyph">✧</span>Спикеры</a></li>
+    <li><a href="#modules"><span class="glyph">𓆃</span>Модули</a></li>
+    <li><a href="#bonus"><span class="glyph">✦</span>Бонус</a></li>
+    <li><a href="#calendar-anchor"><span class="glyph">⧉</span>Календарь</a></li>
+  </ul>
+</nav>
+
 <div class="container">
 
-  <h1 class="title">
-    Код Реальности
-    <span>Хроники Акаши • Энергетика • Психология • Нейромаркетинг</span>
-  </h1>
+  <!-- ХЕРО -->
+  <section id="about">
+    <h1 class="title">
+      Код Реальности
+      <span>Хроники Акаши • Энергетика • Психология • Нейромаркетинг</span>
+    </h1>
 
-  <div class="subtitle">
-    Программа глубокого обучения и профессиональной практики
+    <div class="subtitle">
+      Программа глубокого обучения и профессиональной практики
+    </div>
+
+    <div class="section">
+      <div class="lead-text">
+        <strong>Миссия программы</strong> — передать ясный, структурный и безопасный подход
+        к работе с Хрониками Акаши, научить глубокому чтению, помочь интегрировать опыт
+        и сформировать устойчивую практику с клиентами и личным брендом.
+      </div>
+    </div>
+  </section>
+
+  <!-- КАЛЕНДАРЬ -->
+  <div class="section" id="calendar-anchor">
+    <div class="section-title">Календарь программы</div>
+    <div class="calendar-wrap">
+      <a href="https://calendar.google.com/calendar/ical/NjY1MGNiMGJmYjNjMjkwMWNlYjUyOTJiMzQ1YjM3YTQyMWUzYWQxODE0MjE1YTAxMWVlMzM5NzU2MDdiMjQ3Y0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t/public/basic.ics"
+         class="calendar-btn">
+        <span>🗓</span>
+        Добавить всю программу в календарь
+      </a>
+    </div>
   </div>
-
-  <div class="lead-text">
-    <strong>Миссия программы</strong> — передать ясный, структурный и безопасный подход
-    к работе с Хрониками Акаши, научить глубокому чтению, помочь интегрировать опыт и
-    сформировать устойчивую практику с клиентами и личным брендом.
-  </div>
-
-  <!-- КНОПКА КАЛЕНДАРЯ -->
-  <!-- После выкладки на GitHub Pages можно оставить просто href="calendar.ics" -->
-  <a href="calendar.ics" class="calendar-btn">
-    <span>🗓</span>
-    Добавить всю программу в календарь
-  </a>
 
   <!-- СПИКЕРЫ -->
-  <div class="masters-title">Команда</div>
+  <section id="team" class="section">
+    <div class="section-title">Команда</div>
 
-  <section class="masters">
-    <article class="master">
-      <div class="master-name">Анастасия Назирова</div>
-      <div class="master-role">Хроники Акаши</div>
-      <div class="master-text">
-        Проводник в поле Хроник. Помогает развить чувствование, выстраивать безопасное
-        взаимодействие с полем и находить свой стиль чтения.
-      </div>
-    </article>
+    <div class="masters">
+      <article class="master">
+        <div class="master-name">Анастасия Назирова</div>
+        <div class="master-role">Хроники Акаши</div>
+        <div class="master-text">
+          Проводник в поле Хроник. Помогает развить чувствование, выстраивать безопасное
+          взаимодействие с полем и находить свой стиль чтения.
+        </div>
+      </article>
 
-    <article class="master">
-      <div class="master-name">Олеся Лебединец</div>
-      <div class="master-role">Психология</div>
-      <div class="master-text">
-        Сопровождает в работе со страхами, сопротивлением и эмоциональными процессами,
-        которые поднимаются при погружении в практику.
-      </div>
-    </article>
+      <article class="master">
+        <div class="master-name">Олеся Лебединец</div>
+        <div class="master-role">Психология</div>
+        <div class="master-text">
+          Сопровождает в работе со страхами, сопротивлением и эмоциональными
+          процессами, которые поднимаются при погружении в практику.
+        </div>
+      </article>
 
-    <article class="master">
-      <div class="master-name">Алёна Чернокошкина</div>
-      <div class="master-role">Энергетика</div>
-      <div class="master-text">
-        Ведёт энергетические чистки, выравнивает поле, помогает работать безопасно
-        и стабильно на глубине.
-      </div>
-    </article>
+      <article class="master">
+        <div class="master-name">Алёна Чернокошкина</div>
+        <div class="master-role">Энергетика</div>
+        <div class="master-text">
+          Ведёт энергетические чистки, выравнивает поле, помогает работать
+          безопасно и стабильно на глубине.
+        </div>
+      </article>
 
-    <article class="master">
-      <div class="master-name">Никита Вахрушев</div>
-      <div class="master-role">Нейромаркетинг</div>
-      <div class="master-text">
-        Обучает созданию уникального стиля мастера, работе с нейросетями, контентом,
-        визуалом и построению сильного личного бренда.
-      </div>
-    </article>
+      <article class="master">
+        <div class="master-name">Никита Вахрушев</div>
+        <div class="master-role">Нейромаркетинг</div>
+        <div class="master-text">
+          Обучает созданию уникального стиля мастера, работе с нейросетями, контентом,
+          визуалом и построению сильного личного бренда.
+        </div>
+      </article>
+    </div>
   </section>
 
   <!-- МОДУЛИ -->
-  <section class="grid">
+  <section id="modules" class="section">
+    <div class="section-title">Структура обучения</div>
 
-    <!-- Модуль 1 -->
-    <article class="card">
-      <div class="card-header">
-        <div class="card-icon">🌌</div>
-        <div class="card-title">Основы и подготовка</div>
-      </div>
-      <div class="card-dates">7 — 17 декабря</div>
+    <div class="grid">
 
-      <p>
-        Формирование внутреннего фундамента: соединение со своей природой, понимание
-        полевой работы и очищение канала для дальнейшего углубления.
-      </p>
+      <!-- 1 -->
+      <article class="card">
+        <div class="card-header">
+          <div class="card-icon">🌌</div>
+          <div class="card-title">Основы и подготовка</div>
+        </div>
+        <div class="card-dates">7 — 17 декабря</div>
 
-      <p>
-        <strong>7 декабря — Практика соединения</strong>
-        Настройка на своё поле, формирование внутреннего отклика и чувствования
-        движения энергии.
-      </p>
+        <p>
+          Формирование внутреннего фундамента: соединение со своей природой, понимание
+          полевой работы и очищение канала для дальнейшего углубления.
+        </p>
 
-      <p>
-        <strong>10 декабря — Теория Хроник Акаши</strong>
-        Разбор структуры поля, принципов считывания, безопасности, типов запросов
-        и полевой логики.
-      </p>
+        <p>
+          <strong>7 декабря — Практика соединения</strong>
+          Настройка на своё поле, формирование внутреннего отклика и чувствования
+          движения энергии.
+        </p>
 
-      <p>
-        <strong>11–17 декабря — Энергетическая чистка</strong>
-        Глубокая работа по снятию внутренних блоков, выравниванию энергетики
-        и подготовке канала.
-      </p>
+        <p>
+          <strong>10 декабря — Теория Хроник Акаши</strong>
+          Разбор структуры поля, принципов считывания, безопасности, типов запросов
+          и полевой логики.
+        </p>
 
-      <div class="card-number">01</div>
-    </article>
+        <p>
+          <strong>11–17 декабря — Энергетическая чистка</strong>
+          Глубокая работа по снятию внутренних блоков, выравниванию энергетики
+          и подготовке канала.
+        </p>
 
-    <!-- Модуль 2 -->
-    <article class="card">
-      <div class="card-header">
-        <div class="card-icon">🔮</div>
-        <div class="card-title">Погружение и практика</div>
-      </div>
-      <div class="card-dates">18 — 27 декабря</div>
+        <div class="card-number">01</div>
+      </article>
 
-      <p>
-        Первый опыт работы: входы в Хроники, запросы, настройка сознания,
-        развитие стабильного состояния для чтения.
-      </p>
+      <!-- 2 -->
+      <article class="card">
+        <div class="card-header">
+          <div class="card-icon">🔮</div>
+          <div class="card-title">Погружение и практика</div>
+        </div>
+        <div class="card-dates">18 — 27 декабря</div>
 
-      <p>
-        <strong>18 декабря — Работа с Хрониками</strong>
-        Техника входа, формулировка вопросов, различение сигналов поля
-        от мыслей, удержание настроения и частоты.
-      </p>
+        <p>
+          Первый опыт работы: входы в Хроники, запросы, настройка сознания,
+          развитие стабильного состояния для чтения.
+        </p>
 
-      <p>
-        <strong>19 декабря — Подготовка сознания</strong>
-        Снятие ментального напряжения, работа с контролем, мягкое
-        переключение в расширенное восприятие.
-      </p>
+        <p>
+          <strong>18 декабря — Работа с Хрониками</strong>
+          Техника входа, формулировка вопросов, различение сигналов поля
+          от мыслей, удержание настроения и частоты.
+        </p>
 
-      <p>
-        <strong>23–27 декабря — Самостоятельная практика</strong>
-        Первые входы под кураторством: укрепление навыка, исследования
-        собственного стиля, развитие чувствительности.
-      </p>
+        <p>
+          <strong>19 декабря — Подготовка сознания</strong>
+          Снятие ментального напряжения, работа с контролем, мягкое
+          переключение в расширенное восприятие.
+        </p>
 
-      <div class="card-number">02</div>
-    </article>
+        <p>
+          <strong>23–27 декабря — Самостоятельная практика</strong>
+          Первые входы под кураторством: укрепление навыка, исследования
+          собственного стиля, развитие чувствительности.
+        </p>
 
-    <!-- Модуль 3 -->
-    <article class="card">
-      <div class="card-header">
-        <div class="card-icon">🤝</div>
-        <div class="card-title">Работа с клиентами</div>
-      </div>
-      <div class="card-dates">28 декабря — 13 января</div>
+        <div class="card-number">02</div>
+      </article>
 
-      <p>
-        Переход к профессиональному формату: структура, сопровождение,
-        рамки, удержание поля сессии.
-      </p>
+      <!-- 3 -->
+      <article class="card">
+        <div class="card-header">
+          <div class="card-icon">🤝</div>
+          <div class="card-title">Работа с клиентами</div>
+        </div>
+        <div class="card-dates">28 декабря — 13 января</div>
 
-      <p>
-        <strong>28 декабря — Работа с клиентом</strong>
-        Пространство сессии, этика, завершение, работа с запросом,
-        поддержка клиента и типичные ошибки.
-      </p>
+        <p>
+          Переход к профессиональному формату: структура, сопровождение,
+          рамки, удержание поля сессии.
+        </p>
 
-      <p>
-        <strong>29–30 декабря и 9–13 января — Практика в парах</strong>
-        Работа в формате «клиент–мастер» с итоговыми сессиями и
-        личной поддержкой психолога.
-      </p>
+        <p>
+          <strong>28 декабря — Работа с клиентом</strong>
+          Пространство сессии, этика, завершение, работа с запросом,
+          поддержка клиента и типичные ошибки.
+        </p>
 
-      <div class="card-number">03</div>
-    </article>
+        <p>
+          <strong>29–30 декабря и 9–13 января — Практика в парах</strong>
+          Работа в формате «клиент–мастер» с итоговыми сессиями и
+          личной поддержкой психолога.
+        </p>
 
-    <!-- Модуль 4 -->
-    <article class="card">
-      <div class="card-header">
-        <div class="card-icon">⚡</div>
-        <div class="card-title">Интеграция и бренд</div>
-      </div>
-      <div class="card-dates">14 — 20 января</div>
+        <div class="card-number">03</div>
+      </article>
 
-      <p>
-        Итоговое выравнивание: психология, защита, стиль мастера,
-        позиционирование, развитие собственной практики.
-      </p>
+      <!-- 4 -->
+      <article class="card">
+        <div class="card-header">
+          <div class="card-icon">⚡</div>
+          <div class="card-title">Интеграция и бренд</div>
+        </div>
+        <div class="card-dates">14 — 20 января</div>
 
-      <p>
-        <strong>14 января — Психология мастера</strong>
-        Работа с устойчивостью, границами, эмоциями и состоянием мастера.
-      </p>
+        <p>
+          Итоговое выравнивание: психология, защита, стиль мастера,
+          позиционирование, развитие собственной практики.
+        </p>
 
-      <p>
-        <strong>16 января — Нейросети и контент</strong>
-        Практика использования нейросетей, создание стиля, формирование
-        контент-плана и визуального языка.
-      </p>
+        <p>
+          <strong>14 января — Психология мастера</strong>
+          Работа с устойчивостью, границами, эмоциями и состоянием мастера.
+        </p>
 
-      <p>
-        <strong>20 января — Защита</strong>
-        Техники безопасности и настройка индивидуального контура мастера
-        для дальнейшей практики.
-      </p>
+        <p>
+          <strong>16 января — Нейросети и контент</strong>
+          Практика использования нейросетей, создание стиля, формирование
+          контент-плана и визуального языка.
+        </p>
 
-      <div class="card-number">04</div>
-    </article>
+        <p>
+          <strong>20 января — Защита</strong>
+          Техники безопасности и настройка индивидуального контура мастера
+          для дальнейшей практики.
+        </p>
 
+        <div class="card-number">04</div>
+      </article>
+
+    </div>
   </section>
 
-  <!-- Бонусный блок -->
-  <div class="bonus">
-    <div class="bonus-title">
-      <span>📈</span>
-      Бонусный блок
-    </div>
+  <!-- БОНУС -->
+  <section id="bonus" class="section">
+    <div class="bonus">
+      <div class="bonus-title">
+        <span>📈</span>
+        Бонусный блок
+      </div>
 
-    <p>
-      <strong>18 января — «Простая магия маркетинга»</strong>
-      Практический урок от Марии Глушковой о честной подаче себя,
-      экологичном привлечении клиентов, раскрытии внутренней ценности
-      и формировании естественного потока.
-    </p>
-  </div>
+      <p>
+        <strong>18 января — «Простая магия маркетинга»</strong>
+        Практический урок от Марии Глушковой о честной подаче себя,
+        экологичном привлечении клиентов, раскрытии внутренней ценности
+        и формировании естественного потока.
+      </p>
+    </div>
+  </section>
 
   <footer>
     Старт: 7 декабря 2025 · Завершение: 20 января 2026
   </footer>
 
 </div>
+
+<script>
+// мобильное меню
+const burger = document.getElementById('burger');
+const mobileNav = document.getElementById('mobileNav');
+
+burger.addEventListener('click', () => {
+  mobileNav.classList.toggle('open');
+});
+
+// закрывать меню по клику на пункт
+mobileNav.addEventListener('click', (e) => {
+  if (e.target.tagName.toLowerCase() === 'a') {
+    mobileNav.classList.remove('open');
+  }
+});
+</script>
+
 </body>
 </html>
