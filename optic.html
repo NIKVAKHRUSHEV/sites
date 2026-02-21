@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Нейросети для руководителей | Оптик-Центр</title>
+    <style>
+        :root {
+            --primary: #0056b3; /* Фирменный синий/медицинский оттенок */
+            --secondary: #00a8cc;
+            --dark: #2c3e50;
+            --light: #f4f7f6;
+            --white: #ffffff;
+            --accent: #ff6b6b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: var(--dark);
+            background-color: var(--white);
+            line-height: 1.4;
+            font-size: 11pt;
+        }
+
+        .a4-page {
+            width: 210mm;
+            height: 297mm;
+            margin: 0 auto;
+            padding: 12mm 15mm;
+            background: var(--white);
+            position: relative;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 18pt;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            font-size: 12pt;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .pre-work {
+            background: linear-gradient(to right, #e8f4f8, #f0f8ff);
+            border-left: 4px solid var(--accent);
+            padding: 8px 12px;
+            margin-bottom: 15px;
+            border-radius: 0 6px 6px 0;
+            font-size: 10pt;
+        }
+
+        .pre-work h3 {
+            color: var(--accent);
+            margin-bottom: 4px;
+            font-size: 11pt;
+            display: flex;
+            align-items: center;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .module {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 10px 12px;
+            background: var(--light);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .module-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 6px;
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 6px;
+        }
+
+        .module-num {
+            background: var(--primary);
+            color: var(--white);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 12pt;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+
+        .module-title {
+            font-size: 11.5pt;
+            color: var(--primary);
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .module-content {
+            font-size: 9.5pt;
+            flex-grow: 1;
+        }
+
+        .module-content ul {
+            padding-left: 18px;
+            margin-bottom: 6px;
+        }
+
+        .module-content li {
+            margin-bottom: 3px;
+        }
+
+        .tools {
+            margin-top: auto;
+            background: var(--white);
+            padding: 5px 8px;
+            border-radius: 4px;
+            font-size: 8.5pt;
+            color: #444;
+            border: 1px solid #eee;
+            font-weight: 500;
+        }
+
+        .tools span {
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        footer {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 9pt;
+            color: #777;
+            border-top: 1px solid #eee;
+            padding-top: 8px;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        /* Настройки для идеальной печати на А4 */
+        @media print {
+            body {
+                background: none;
+            }
+            .a4-page {
+                margin: 0;
+                padding: 10mm;
+                box-shadow: none;
+                width: 100%;
+                height: 100%;
+            }
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+    </style>
+</head>
+<body>
+    <div class="a4-page">
+        <header>
+            <h1>ИИ для эффективного управления</h1>
+            <div class="subtitle">Практический курс для руководителей подразделений «Оптик-Центр» (Челябинск)</div>
+            <div style="font-size: 9.5pt; color: #666; margin-top: 4px;">Формат: 6 занятий по 2 часа (12 часов). Акцент на практику и рабочие задачи.</div>
+        </header>
+
+        <div class="pre-work">
+            <h3>🎯 Этап 0: Аудит задач (До старта обучения)</h3>
+            <p>Сбор анкетирования с руководителей: анализ ежедневной рутины, выявление "узких мест" (отчеты, найм, маркетинг, регламенты). <b>Программа адаптируется</b> под реальные кейсы Оптик-Центра (например, анализ продаж оптики, обучение консультантов).</p>
+        </div>
+
+        <div class="grid">
+            <!-- Занятие 1 -->
+            <div class="module">
+                <div class="module-header">
+                    <div class="module-num">1</div>
+                    <div class="module-title">База: Промпт-инжиниринг и обзор экосистемы ИИ</div>
+                </div>
+                <div class="module-content">
+                    <ul>
+                        <li>Как мыслят нейросети. Разница между моделями (кто в чем силен).</li>
+                        <li><b>Формула идеального запроса</b> (Роль, Контекст, Задача, Формат, Ограничения).</li>
+                        <li>Типы промптов: от простых до цепочек рассуждений (Chain of Thought).</li>
+                        <li>Российские реалии: безопасное использование корпоративных данных.</li>
+                    </ul>
+                </div>
+                <div class="tools">
+                    <span>Инструменты:</span> ChatGPT, Gemini, DeepSeek, Qwen, Алиса (YandexGPT), GigaChat.
+                </div>
+            </div>
+
+            <!-- Занятие 2 -->
+            <div class="module">
+                <div class="module-header">
+                    <div class="module-num">2</div>
+                    <div class="module-title">Аналитика, отчеты и работа с документами</div>
+                </div>
+                <div class="module-content">
+                    <ul>
+                        <li>Загрузка и анализ таблиц (Excel/CSV): поиск аномалий в продажах, сводные отчеты по филиалам.</li>
+                        <li>Работа с огромными массивами текста: загрузка регламентов, договоров, историй болезни (обезличенных).</li>
+                        <li>Создание саммари совещаний по аудиозаписям.</li>
+                    </ul>
+                </div>
+                <div class="tools">
+                    <span>Инструменты:</span> NotebookLM (супер-поиск по базам), ChatGPT Data Analysis, Claude.
+                </div>
+            </div>
+
+            <!-- Занятие 3 -->
+            <div class="module">
+                <div class="module-header">
+                    <div class="module-num">3</div>
+                    <div class="module-title">Управление персоналом и автоматизация рутины</div>
+                </div>
+                <div class="module-content">
+                    <ul>
+                        <li>Генерация должностных инструкций, KPI и OKR для сотрудников Оптик-Центра.</li>
+                        <li><b>Создание тестов:</b> быстрая генерация опросников для проверки знаний (продукция, стандарты сервиса).</li>
+                        <li>Деловая переписка: скрипты ответов клиентам, отработка негатива, письма партнерам.</li>
+                    </ul>
+                </div>
+                <div class="tools">
+                    <span>Инструменты:</span> DeepSeek, ChatGPT, Gemini, встроенные ИИ в текстовые редакторы.
+                </div>
+            </div>
+
+            <!-- Занятие 4 -->
+            <div class="module">
+                <div class="module-header">
+                    <div class="module-num">4</div>
+                    <div class="module-title">Презентации, визуал и "оживление" контента</div>
+                </div>
+                <div class="module-content">
+                    <ul>
+                        <li>Сборка структуры и дизайна презентации по текстовому запросу за 5 минут.</li>
+                        <li>Основы генерации изображений: создание графики для внутренних рассылок, соцсетей или плакатов.</li>
+                        <li><b>"Оживление":</b> базовая анимация изображений и генерация коротких роликов для инструкций/постов.</li>
+                    </ul>
+                </div>
+                <div class="tools">
+                    <span>Инструменты:</span> Gamma.app (презентации), Midjourney / DALL-E 3 / Шедеврум, Kling / Runway (видео).
+                </div>
+            </div>
+
+            <!-- Занятие 5 -->
+            <div class="module">
+                <div class="module-header">
+                    <div class="module-num">5</div>
+                    <div class="module-title">Прототипирование: сайты, лендинги и инструменты</div>
+                </div>
+                <div class="module-content">
+                    <ul>
+                        <li>Zero-code: как руководителю за час создать рабочий прототип лендинга для новой акции Оптик-Центра.</li>
+                        <li>Создание внутренних инструментов (дашборды, веб-формы для заявок) с помощью ИИ-программистов без знания кода.</li>
+                        <li>Генерация структуры сайта и написание продающих текстов.</li>
+                    </ul>
+                </div>
+                <div class="tools">
+                    <span>Инструменты:</span> Lovable.dev, v0.dev, Bolt.new, Claude 3.5 Sonnet (Artifacts).
+                </div>
+            </div>
+
+            <!-- Занятие 6 -->
+            <div class="module">
+                <div class="module-header">
+                    <div class="module-num">6</div>
+                    <div class="module-title">Защита проектов и ИИ-стратегия подразделения</div>
+                </div>
+                <div class="module-content">
+                    <ul>
+                        <li><b>Хакатон:</b> Участники в реальном времени решают свою "висящую" задачу с помощью ИИ.</li>
+                        <li>Презентация результатов (созданный регламент, лендинг акции, система тестов).</li>
+                        <li>Информационная безопасность, этика использования ИИ и внедрение в ДНК команды.</li>
+                    </ul>
+                </div>
+                <div class="tools">
+                    <span>Результат:</span> Готовый ИИ-процесс, внедренный в работу каждого руководителя-участника.
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <strong>Разработано эксклюзивно для компании «Оптик-Центр»</strong><br>
+            Вся программа построена на принципе "Узнал -> Сделал рабочую задачу -> Сэкономил время".
+        </footer>
+    </div>
+</body>
+</html>
