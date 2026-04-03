@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Чек‑лист перед визитом к оптометристу</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+      margin: 0;
+      color: #222;
+      background: #f3f6fb;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #1a9bd7, #4bc0c8);
+      color: #fff;
+      text-align: center;
+      padding: 28px 16px 32px;
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: 22px;
+    }
+
+    .hero p {
+      margin: 0 0 16px;
+      font-size: 14px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 22px;
+      border-radius: 24px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .btn-main {
+      background: #ffe082;
+      color: #263238;
+    }
+
+    .btn-main:hover {
+      background: #ffd54f;
+    }
+
+    .wrap {
+      max-width: 860px;
+      margin: -20px auto 24px;
+      background: #f3f6fb;
+      padding: 0 10px 24px;
+    }
+
+    .section {
+      background: #fff;
+      border-radius: 14px;
+      padding: 18px 16px;
+      margin: 18px 0;
+      box-shadow: 0 8px 20px rgba(15, 35, 52, .06);
+    }
+
+    h2 {
+      margin: 0 0 6px;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    h2 span.icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: #fff;
+    }
+
+    .icon-blue    { background: #1a9bd7; }
+    .icon-green   { background: #43a047; }
+    .icon-purple  { background: #7e57c2; }
+    .icon-amber   { background: #ffb300; }
+    .icon-pink    { background: #ec407a; }
+
+    .tagline {
+      font-size: 13px;
+      color: #607d8b;
+      margin-bottom: 8px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    input, select {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 7px 9px;
+      margin-bottom: 9px;
+      border-radius: 6px;
+      border: 1px solid #cfd8dc;
+      font-size: 13px;
+    }
+
+    .options p {
+      margin: 6px 0 4px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .options label {
+      font-weight: 400;
+      font-size: 13px;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .hint {
+      font-size: 11px;
+      color: #78909c;
+      margin: 4px 0 6px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 6px 0 4px;
+    }
+
+    .chip {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #e3f2fd;
+      color: #1565c0;
+    }
+
+    .cta-block {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .btn-ghost {
+      background: #fff;
+      color: #1a9bd7;
+      border: 1px solid #1a9bd7;
+    }
+
+    .btn-ghost:hover {
+      background: #e3f2fd;
+    }
+
+    .small {
+      text-align: center;
+      font-size: 11px;
+      color: #90a4ae;
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <h1>Подготовьтесь к приёму и получите −20% на очки</h1>
+    <p>Ответьте на вопросы заранее — оптометрист сразу увидит ваши задачи и быстрее подберёт оптимальные очки.</p>
+    <a href="#form" class="btn btn-main">Пройти чек‑лист</a>
+    <div class="chips" style="justify-content:center;margin-top:14px">
+      <span class="chip">Быстрее приём</span>
+      <span class="chip">Очки под образ жизни</span>
+      <span class="chip">Скидка 20%</span>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <form id="form">
+
+      <!-- Блок 1 -->
+      <section class="section">
+        <h2><span class="icon icon-blue">1</span> Контакты и запись</h2>
+        <p class="tagline">Свяжем ваши ответы с картой клиента и резервом времени.</p>
+
+        <label>Имя</label>
+        <input type="text" name="name">
+
+        <label>Телефон</label>
+        <input type="tel" name="phone">
+
+        <label>E‑mail</label>
+        <input type="email" name="email">
+
+        <div class="options">
+          <p>Желаемое время визита</p>
+          <input type="date" name="preferred_date">
+          <input type="time" name="preferred_time">
+          <label>
+            <input type="checkbox" name="want_discount">
+            Хочу скидку 20% за прохождение чек‑листа
+          </label>
+        </div>
+
+        <p class="hint">
+          После отправки анкета может быть автоматически выгружена в 1С как карточка клиента.
+        </p>
+      </section>
+
+      <!-- Блок 2 -->
+      <section class="section">
+        <h2><span class="icon icon-green">2</span> Образ жизни и нагрузки</h2>
+        <p class="tagline">Помогает выбрать расстояния зрения, дизайн и покрытия линз.</p>
+
+        <label>Часы за компьютером в день</label>
+        <input type="text" name="hours_pc" placeholder="Например, 6">
+
+        <label>Часы со смартфоном / планшетом</label>
+        <input type="text" name="hours_phone">
+
+        <label>Часы за рулём</label>
+        <input type="text" name="hours_drive">
+
+        <div class="options">
+          <p>Основной характер работы</p>
+          <label><input type="radio" name="job_type" value="near"> В основном вблизи</label>
+          <label><input type="radio" name="job_type" value="mixed"> И вблизи, и вдаль</label>
+          <label><input type="radio" name="job_type" value="far"> В основном вдаль</label>
+        </div>
+
+        <p class="hint">
+          Много близи → офисные / прогрессивные линзы, много за рулём → решения для вождения с антибликом.
+        </p>
+      </section>
+
+      <!-- Блок 3 -->
+      <section class="section">
+        <h2><span class="icon icon-purple">3</span> Текущее зрение и очки</h2>
+        <p class="tagline">Нужны для уточнения типа линз, индекса и замен прошлых решений.</p>
+
+        <div class="options">
+          <p>Носите ли вы сейчас очки?</p>
+          <label><input type="radio" name="wear_glasses" value="always"> Постоянно</label>
+          <label><input type="radio" name="wear_glasses" value="sometimes"> Периодически</label>
+          <label><input type="radio" name="wear_glasses" value="near_only"> Только для чтения / работы</label>
+          <label><input type="radio" name="wear_glasses" value="no"> Нет</label>
+        </div>
+
+        <div class="options">
+          <p>Рецепт на очки / линзы</p>
+          <label><input type="radio" name="has_rx" value="actual"> Есть актуальный (могу приложить)</label>
+          <label><input type="radio" name="has_rx" value="old"> Старый, нужен пересмотр</label>
+          <label><input type="radio" name="has_rx" value="none"> Никогда не было</label>
+        </div>
+
+        <div class="options">
+          <p>Что не устраивает в текущих очках?</p>
+          <label><input type="checkbox" name="dissatisfaction" value="fatigue"> Устают глаза / головные боли</label>
+          <label><input type="checkbox" name="dissatisfaction" value="blur"> Размытость вдаль или вблизи</label>
+          <label><input type="checkbox" name="dissatisfaction" value="glare"> Блики от фар, экранов</label>
+          <label><input type="checkbox" name="dissatisfaction" value="heavy"> Слишком тяжёлые</label>
+        </div>
+
+        <p class="hint">
+          Например, жалобы на блики → антибликовое покрытие; тяжёлые очки → более тонкие линзы с высоким индексом.
+        </p>
+      </section>
+
+      <!-- Блок 4 -->
+      <section class="section">
+        <h2><span class="icon icon-amber">4</span> Цели и ожидания</h2>
+        <p class="tagline">Формирует задание на «очки под задачи».</p>
+
+        <div class="options">
+          <p>Для чего нужны новые очки?</p>
+          <label><input type="checkbox" name="goals" value="all"> На все расстояния</label>
+          <label><input type="checkbox" name="goals" value="pc"> Для компьютера и близи</label>
+          <label><input type="checkbox" name="goals" value="drive"> Для вождения</label>
+          <label><input type="checkbox" name="goals" value="sun_rx"> Солнцезащитные с диоптриями</label>
+        </div>
+
+        <div class="options">
+          <p>Несколько пар или одна?</p>
+          <label><input type="radio" name="multi_pairs" value="yes"> 2–3 пары под разные сценарии</label>
+          <label><input type="radio" name="multi_pairs" value="no"> Одна универсальная пара</label>
+        </div>
+      </section>
+
+      <!-- Блок 5–7 компактно -->
+      <section class="section">
+        <h2><span class="icon icon-pink">5</span> Стиль, дополнительные функции и бюджет</h2>
+        <p class="tagline">Определяем дизайн оправы, покрытия и ценовой уровень.</p>
+
+        <div class="options">
+          <p>Стиль оправы</p>
+          <label><input type="radio" name="frame_style" value="classic"> Спокойная классика</label>
+          <label><input type="radio" name="frame_style" value="fashion"> Модные, заметные</label>
+          <label><input type="radio" name="frame_style" value="invisible"> Максимально незаметные</label>
+        </div>
+
+        <div class="options">
+          <p>Покрытия и функции</p>
+          <label><input type="checkbox" name="features" value="antireflect"> Антибликовое покрытие</label>
+          <label><input type="checkbox" name="features" value="blue"> Защита от синего излучения</label>
+          <label><input type="checkbox" name="features" value="photo"> Фотохром (темнеют на улице)</label>
+          <label><input type="checkbox" name="features" value="polar"> Поляризация</label>
+        </div>
+
+        <div class="options">
+          <p>Бюджет (оправа + линзы)</p>
+          <label><input type="radio" name="budget" value="economy"> Эконом</label>
+          <label><input type="radio" name="budget" value="mid"> Средний</label>
+          <label><input type="radio" name="budget" value="premium"> Премиум</label>
+        </div>
+      </section>
+
+      <!-- Итог -->
+      <section class="section">
+        <h2><span class="icon icon-blue">8</span> Итог, запись и скидка</h2>
+        <p class="tagline">
+          После отправки данные могут быть загружены в 1С как анкета клиента.
+        </p>
+
+        <div class="cta-block">
+          <p><strong>Скидка 20%</strong> будет привязана к вашему номеру телефона, указанному в анкете.</p>
+
+          <button type="submit" class="btn btn-main">
+            Отправить анкету и записаться
+          </button>
+          <br>
+
+          <button type="button" class="btn btn-ghost" style="margin-top:8px">
+            Пусть администратор позвонит мне
+          </button>
+
+          <p class="small">
+            На приёме не придётся вспоминать детали — оптометрист всё увидит в вашей анкете.
+          </p>
+        </div>
+      </section>
+
+    </form>
+  </div>
+
+</body>
+</html>
